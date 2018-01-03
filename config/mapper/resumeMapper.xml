@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.iotek.dao.ResumeDao">
+	<insert id="addResume" parameterType="Resume">
+		INSERT INTO 
+			resumes(name,gender,age,diploma,tel,
+				email,jobObjective,politicalStatus,lastJob,workingExperience,expectedSalary,hobbies) 
+		VALUES
+			(#{name},#{gender},#{age},#{diploma},#{tel},
+				#{email},#{jobObjective},#{politicalStatus},
+				#{lastJob},#{workingExperience},#{expectedSalary},#{hobbies})
+	</insert>
+	
+	<update id="updateResume" parameterType="Resume">
+		UPDATE resumes SET name = #{name},gender=#{gender},age=#{age},diploma=#{diploma},tel=#{tel},
+				email=#{email},jobObjective=#{jobObjective},politicalStatus=#{politicalStatus},
+				lastJob=#{lastJob},workingExperience=#{workingExperience},expectedSalary=#{expectedSalary},hobbies=#{hobbies}
+		WHERE id = #{id}
+	</update>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
