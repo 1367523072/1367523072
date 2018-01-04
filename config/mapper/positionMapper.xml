@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.iotek.dao.PositionDao">
+	<select id="queryAll" resultType="Position">
+		SELECT * FROM positions 
+	</select>
+	
+	<select id="queryByDepartment" resultType="Position">
+		SELECT * FROM positions WHERE depName = #{depName}
+	</select>
+	
+	<insert id="addPosition" parameterType="Position">
+		INSERT INTO 
+			positions(name,depId) 
+		VALUES
+			(#{name},#{depId})
+	</insert>
+	
+	<delete id="deletePosition">
+		DELETE FROM positions WHERE id=#{id}
+	</delete>
+	
+	<update id="updatePosition" parameterType="Position">
+		UPDATE 
+			positions 
+		SET 
+			name=#{name},depId=#{depId} 
+		WHERE 
+			id=#{id}
+	</update>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+

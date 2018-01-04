@@ -1,7 +1,7 @@
 package comiotek.entity;
 
 import java.util.Date;
-
+//应聘表
 public class ApplicationForm {
 	private int id;
 	private int uId;//简历的id；

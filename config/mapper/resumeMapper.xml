@@ -5,21 +5,32 @@
 	<insert id="addResume" parameterType="Resume">
 		INSERT INTO 
 			resumes(name,gender,age,diploma,tel,
-				email,jobObjective,politicalStatus,lastJob,workingExperience,expectedSalary,hobbies) 
+				email,department,position,politicalStatus,lastJob,workingExperience,expectedSalary,hobbies,userId) 
 		VALUES
 			(#{name},#{gender},#{age},#{diploma},#{tel},
-				#{email},#{jobObjective},#{politicalStatus},
-				#{lastJob},#{workingExperience},#{expectedSalary},#{hobbies})
+				#{email},#{department},#{position},#{politicalStatus},
+				#{lastJob},#{workingExperience},#{expectedSalary},#{hobbies},#{userId})
 	</insert>
 	
 	<update id="updateResume" parameterType="Resume">
 		UPDATE resumes SET name = #{name},gender=#{gender},age=#{age},diploma=#{diploma},tel=#{tel},
-				email=#{email},jobObjective=#{jobObjective},politicalStatus=#{politicalStatus},
+				email=#{email},department=#{department},position=#{position},politicalStatus=#{politicalStatus},
 				lastJob=#{lastJob},workingExperience=#{workingExperience},expectedSalary=#{expectedSalary},hobbies=#{hobbies}
-		WHERE id = #{id}
+		WHERE userId = #{userId}
 	</update>
+	
+	<select id="queryAll" resultType="Resume">
+		SELECT * FROM resumes
+	</select>
+	
+	<select id="queryOne" resultType="Resume">
+		SELECT * FROM resumes WHERE id=#{id}
+	</select>
+	
+	<select id="queryOneByUserId" resultType="Resume">
+		SELECT * FROM resumes WHERE userId=#{userId}
+	</select>
 </mapper>
-
 
 
 

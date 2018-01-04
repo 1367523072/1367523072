@@ -3,18 +3,19 @@ package comiotek.entity;
 public class Resume {
 	private int id;
 	private String name;
-	private int gender;
-	private int age;
+	private String gender;
+	private String age;
 	private String diploma;//学历
 	private String tel;
 	private String email;
-	private int department;//部门
-	private int position;//职位
+	private String department;//部门
+	private String position;//职位
 	private String politicalStatus;//政治面貌
 	private String lastJob;
 	private String workingExperience;
 	private String expectedSalary;//期望薪资
 	private String hobbies;//兴趣爱好
+	private int userId;
 	public int getId() {
 		return id;
 	}
@@ -27,16 +28,16 @@ public class Resume {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public int getGender() {
+	public String getGender() {
 		return gender;
 	}
-	public void setGender(int gender) {
+	public void setGender(String gender) {
 		this.gender = gender;
 	}
-	public int getAge() {
+	public String getAge() {
 		return age;
 	}
-	public void setAge(int age) {
+	public void setAge(String age) {
 		this.age = age;
 	}
 	public String getDiploma() {
@@ -57,16 +58,16 @@ public class Resume {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public int getDepartment() {
+	public String getDepartment() {
 		return department;
 	}
-	public void setDepartment(int department) {
+	public void setDepartment(String department) {
 		this.department = department;
 	}
-	public int getPosition() {
+	public String getPosition() {
 		return position;
 	}
-	public void setPosition(int position) {
+	public void setPosition(String position) {
 		this.position = position;
 	}
 	public String getPoliticalStatus() {
@@ -99,19 +100,18 @@ public class Resume {
 	public void setHobbies(String hobbies) {
 		this.hobbies = hobbies;
 	}
-	@Override
-	public String toString() {
-		return "Resume [id=" + id + ", name=" + name + ", gender=" + gender + ", age=" + age + ", diploma=" + diploma
-				+ ", tel=" + tel + ", email=" + email + ", department=" + department + ", position=" + position
-				+ ", politicalStatus=" + politicalStatus + ", lastJob=" + lastJob + ", workingExperience="
-				+ workingExperience + ", expectedSalary=" + expectedSalary + ", hobbies=" + hobbies + "]";
+	public int getUserId() {
+		return userId;
+	}
+	public void setUserId(int userId) {
+		this.userId = userId;
 	}
 	public Resume() {
 		super();
 	}
-	public Resume(int id, String name, int gender, int age, String diploma, String tel, String email, int department,
-			int position, String politicalStatus, String lastJob, String workingExperience, String expectedSalary,
-			String hobbies) {
+	public Resume(int id, String name, String gender, String age, String diploma, String tel, String email, String department,
+			String position, String politicalStatus, String lastJob, String workingExperience, String expectedSalary,
+			String hobbies, int userId) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -127,10 +127,11 @@ public class Resume {
 		this.workingExperience = workingExperience;
 		this.expectedSalary = expectedSalary;
 		this.hobbies = hobbies;
+		this.userId = userId;
 	}
-	public Resume(String name, int gender, int age, String diploma, String tel, String email, int department,
-			int position, String politicalStatus, String lastJob, String workingExperience, String expectedSalary,
-			String hobbies) {
+	public Resume(String name, String gender, String age, String diploma, String tel, String email, String department,
+			String position, String politicalStatus, String lastJob, String workingExperience, String expectedSalary,
+			String hobbies, int userId) {
 		super();
 		this.name = name;
 		this.gender = gender;
@@ -145,6 +146,14 @@ public class Resume {
 		this.workingExperience = workingExperience;
 		this.expectedSalary = expectedSalary;
 		this.hobbies = hobbies;
+		this.userId = userId;
 	}
-	
+	@Override
+	public String toString() {
+		return "Resume [id=" + id + ", name=" + name + ", gender=" + gender + ", age=" + age + ", diploma=" + diploma
+				+ ", tel=" + tel + ", email=" + email + ", department=" + department + ", position=" + position
+				+ ", politicalStatus=" + politicalStatus + ", lastJob=" + lastJob + ", workingExperience="
+				+ workingExperience + ", expectedSalary=" + expectedSalary + ", hobbies=" + hobbies + ", userId="
+				+ userId + "]";
+	}
 }

@@ -1,20 +1,38 @@
 package com.iotek.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.iotek.service.DepartmentService;
+import com.iotek.service.PositionService;
+import com.iotek.service.ResumeService;
 import com.iotek.service.UserService;
 
+import comiotek.entity.Department;
+import comiotek.entity.Position;
+import comiotek.entity.Resume;
 import comiotek.entity.User;
 
 @Controller
 public class Controllers {
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private DepartmentService departmentService;
+	
+	@Autowired
+	private PositionService positionService;
+	
+	@Autowired
+	private ResumeService resumeService;
 	
 	@ResponseBody
 	@RequestMapping("/regist")
@@ -80,4 +98,30 @@ public class Controllers {
 		}
 		return data;
 	}
+	
+	@RequestMapping("/watchResume")
+	public String resume(Model model,HttpSession session) {
+		User user = (User) session.getAttribute("user");
+		Resume resume = resumeService.queryOneByUserId(user.getId());
+		List<Department> departments = departmentService.queryAllDepartment();
+		List<Position> positions = positionService.queryAll();
+		model.addAttribute("departments", departments);
+		model.addAttribute("positions", positions);
+		model.addAttribute("resume", resume);
+		return "resume";
+	}
+	
+	@RequestMapping("/resume")
+	public String addResume(Resume resume,Model model,HttpSession session) {
+		User user = (User) session.getAttribute("user");
+		Resume queryOneByUserId = resumeService.queryOneByUserId(user.getId());
+		if(queryOneByUserId==null) {
+			resumeService.addResume(resume);
+		}else {
+			resumeService.updateResume(resume);
+		}
+		return "resume";
+	}
+	
+	
 }
