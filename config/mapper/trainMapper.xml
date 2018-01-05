@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.iotek.dao.TrainDao">
+	<insert id="addTrain" parameterType="Train">
+		INSERT INTO trains(name,date,dept) VALUES(#{name},#{date},#{dept})
+	</insert>
+	
+	<select id="queryAllTrain" parameterType="Train">
+		SELECT * FROM trains
+	</select>
+	
+	<update id="updateTrain" parameterType="Train">
+		UPDATE trains SET name=#{name},date=#{date},dept=#{dept} WHERE id=#{id}
+	</update>
+	
+	<delete id="deleteTrain">
+		DELETE FROM trains WHERE id=#{id}
+	</delete>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
