@@ -6,7 +6,7 @@
 		INSERT INTO trains(name,date,dept) VALUES(#{name},#{date},#{dept})
 	</insert>
 	
-	<select id="queryAllTrain" parameterType="Train">
+	<select id="queryAllTrain" resultType="Train">
 		SELECT * FROM trains
 	</select>
 	

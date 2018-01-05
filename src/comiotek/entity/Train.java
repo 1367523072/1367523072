@@ -2,6 +2,7 @@ package comiotek.entity;
 
 import java.util.Date;
 
+//≈‡—µ
 public class Train {
 	private int id;
 	private String name;

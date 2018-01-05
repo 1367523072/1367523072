@@ -1,7 +1,7 @@
 package comiotek.entity;
 
 import java.util.Date;
-
+//¿¼ÇÚ
 public class Attendance {
 	private int id;
 	private String uName;

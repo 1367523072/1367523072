@@ -25,4 +25,19 @@ public class ApplicationFormServiceImpl implements ApplicationFormService {
 		return applicationFormDao.deleteApplicationForm(id);
 	}
 
+	@Override
+	public int updateStatus(int id) {
+		return applicationFormDao.updateStatus(id);
+	}
+
+	@Override
+	public int updateInterviewStatus(int id) {
+		return applicationFormDao.updateInterviewStatus(id);
+	}
+
+	@Override
+	public int addApplicationForm(ApplicationForm applicationForm) {
+		return applicationFormDao.addApplicationForm(applicationForm);
+	}
+
 }

@@ -1,13 +1,14 @@
 package comiotek.entity;
 
 import java.util.Date;
-//应聘表
-public class ApplicationForm {
+
+//反馈表
+public class FeedbackForm {
 	private int id;
 	private int uId;//游客的id；
-	private Date date;
+	private Date date;//应聘表的date
 	private String status = "未查看";
-	private String interviewStatus = "未面试";
+	private String interviewStatus = "按时面试";
 	public int getId() {
 		return id;
 	}
@@ -38,10 +39,10 @@ public class ApplicationForm {
 	public void setInterviewStatus(String interviewStatus) {
 		this.interviewStatus = interviewStatus;
 	}
-	public ApplicationForm() {
+	public FeedbackForm() {
 		super();
 	}
-	public ApplicationForm(int id, int uId, Date date, String status, String interviewStatus) {
+	public FeedbackForm(int id, int uId, Date date, String status, String interviewStatus) {
 		super();
 		this.id = id;
 		this.uId = uId;
@@ -51,7 +52,7 @@ public class ApplicationForm {
 	}
 	@Override
 	public String toString() {
-		return "ApplicationForm [id=" + id + ", uId=" + uId + ", date=" + date + ", status=" + status
+		return "FeedbackForm [id=" + id + ", uId=" + uId + ", date=" + date + ", status=" + status
 				+ ", interviewStatus=" + interviewStatus + "]";
 	}
 }
