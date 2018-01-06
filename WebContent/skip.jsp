@@ -16,7 +16,7 @@
 </script>
 <body>
 	<div align="center">
-		<b style="color: red;size: 20px">恭喜您，登录成功！</b><a href="login.jsp" style="color: blue">进入个人界面</a><br/>
+		<b style="color: red;size: 20px">恭喜您，登录成功！</b><a href="tourist.jsp" style="color: blue">进入个人界面</a><br/>
 		<b style="color: red;size: 20px">2秒后自动跳转......</b>
 	</div>
 </body>

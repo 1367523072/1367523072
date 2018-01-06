@@ -3,3 +3,4 @@
 第二天白天 共完成三个实体类的 dao，service xml 并测试 简历页面还剩二级联动
 晚上 二个实体类的 dao，service xml manager的部分页面
 第三天五个实体类的 dao，service xml 及测试
+晚上  1个实体类的 dao，service xml 整理了controller 部分页面

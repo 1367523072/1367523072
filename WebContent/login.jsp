@@ -26,8 +26,6 @@ body {
 			var name = $(".name").val();
 			var password = $(".password").val();
 			$(".span2").show();
-			alert(name);
-			alert(password);
 			$.ajax({
 				url : "${pageContext.request.contextPath}/check",
 				type : "post",
@@ -64,8 +62,10 @@ body {
 					success : function(data) {
 						if(data==0){
 							alert("用户名与密码不匹配");
+						}else if(data==1){
+							window.location.href="skip.jsp";
 						}else{
-						window.location.href="skip.jsp";
+							window.location.href="manager.jsp";
 						}
 					}
 				});

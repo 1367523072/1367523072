@@ -9,6 +9,22 @@
 	<delete id="deleteApplicationForm" parameterType="int">
 		DELETE FROM applicationForms WHERE id = #{id}
 	</delete>
+	
+	<update id="updateStatus">
+		UPDATE applicationForms SET status = '已查看' WHERE id=#{id}
+	</update>
+	
+	<update id="updateInterviewStatus">
+		UPDATE applicationForms SET interviewStatus = '已面试' WHERE id=#{id}
+	</update>
+	
+	<insert id="addApplicationForm" parameterType="ApplicationForm">
+		INSERT INTO 
+			applicationForms(uId,date,status,interviewStatus) 
+		VALUES
+			(#{uId},#{date},#{status},#{interviewStatus})
+	</insert>
+	
 </mapper>
 
 

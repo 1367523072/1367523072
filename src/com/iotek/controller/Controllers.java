@@ -1,5 +1,6 @@
 package com.iotek.controller;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -10,11 +11,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.iotek.service.ApplicationFormService;
 import com.iotek.service.DepartmentService;
 import com.iotek.service.PositionService;
 import com.iotek.service.ResumeService;
 import com.iotek.service.UserService;
 
+import comiotek.entity.ApplicationForm;
 import comiotek.entity.Department;
 import comiotek.entity.Position;
 import comiotek.entity.Resume;
@@ -33,6 +36,9 @@ public class Controllers {
 	
 	@Autowired
 	private ResumeService resumeService;
+	
+	@Autowired
+	private ApplicationFormService applicationFormService;
 	
 	@ResponseBody
 	@RequestMapping("/regist")
@@ -66,7 +72,11 @@ public class Controllers {
 		User user = userService.find(name);
 		String data="";
 		if(user.getPassword().equals(password)) {
+			if(user.getStatus()==1) {
+				data="2";
+			}else {
 			data="1";
+			}
 			session.setAttribute("user", user);
 		}else {
 			data="0";
@@ -117,10 +127,20 @@ public class Controllers {
 		Resume queryOneByUserId = resumeService.queryOneByUserId(user.getId());
 		if(queryOneByUserId==null) {
 			resumeService.addResume(resume);
+			ApplicationForm applicationForm = new ApplicationForm();
+			applicationForm.setuId(user.getId());
+			applicationForm.setDate(new Date());
+			applicationFormService.addApplicationForm(applicationForm);
 		}else {
 			resumeService.updateResume(resume);
 		}
 		return "resume";
+	}
+	@RequestMapping("/ApplicationManagement")
+	public String applicationManagement(Model model) {
+		List<ApplicationForm> list = applicationFormService.queryAllApplicationForm();
+		model.addAttribute("list", list);
+		return "manager";
 	}
 	
 	

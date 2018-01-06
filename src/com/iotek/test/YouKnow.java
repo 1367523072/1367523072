@@ -1,5 +1,6 @@
 package com.iotek.test;
 
+import java.util.Date;
 import java.util.List;
 
 import org.junit.Test;
@@ -8,30 +9,48 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.iotek.dao.ApplicationFormDao;
 import com.iotek.dao.DepartmentDao;
+import com.iotek.dao.FeedbackFormDao;
 import com.iotek.dao.PositionDao;
+import com.iotek.dao.PrizeInfoDao;
 import com.iotek.dao.ResumeDao;
+import com.iotek.dao.SalaryDao;
+import com.iotek.dao.TrainDao;
 import com.iotek.dao.UserDao;
+import com.iotek.dao.WageDiscrepancyDao;
 
+import comiotek.entity.ApplicationForm;
 import comiotek.entity.Department;
 import comiotek.entity.Position;
+import comiotek.entity.PrizeInfo;
 import comiotek.entity.Resume;
+import comiotek.entity.Salary;
+import comiotek.entity.Train;
 import comiotek.entity.User;
+import comiotek.entity.WageDiscrepancy;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({"classpath:spring-mvc.xml", "classpath:spring-mybatis.xml", "classpath:spring.xml"})
 public class YouKnow {
 	@Autowired
-	private UserDao userDao;
-	
+	private ApplicationFormDao applicationFormDao;
 	@Autowired
 	private ResumeDao resumeDao;
-	
+	@Autowired
+	private TrainDao trainDao;
+	@Autowired
+	private FeedbackFormDao feedbackFormDao;
 	@Autowired
 	private DepartmentDao departmentDao;
 	@Autowired
 	private PositionDao positionDao;
-	
+	@Autowired
+	private PrizeInfoDao prizeInfoDao;
+	@Autowired
+	private SalaryDao salaryDao;
+	@Autowired
+	private WageDiscrepancyDao wageDiscrepancyDao;
 	@Test
 	public void test() {
 		/*User user = new User(-1,"ÕÅÈý","123456");
@@ -59,8 +78,16 @@ public class YouKnow {
 		//departmentDao.deleteOneDepartment(2);
 		//List<Department> list = departmentDao.queryAllDepartment();
 		//System.out.println(list);
-		List<Department> list = departmentDao.queryAllDepartment();
-		System.out.println(list);
+		//List<Department> list = departmentDao.queryAllDepartment();
+		//System.out.println(list);
+		
+		//feedbackFormDao.queryByUID(6);
+		//feedbackFormDao.queryByUIDAndStatus(6);
+		//trainDao.addTrain(new Train(1,"12",new Date(),"hujia"));
+		//trainDao.updateTrain(new Train(1,"13",new Date(),"hujia"));
+		trainDao.deleteTrain(1);
+		//trainDao.queryAllTrain();
+		
 	}
 	
 	@Test
@@ -72,6 +99,26 @@ public class YouKnow {
 		List<Position> queryByDepartment = positionDao.queryByDepartment(3);
 		System.out.println(queryByDepartment);
 		positionDao.updatePosition(new Position(3,"ÅÚ     »Ò",2));*/
+		ApplicationForm a = new ApplicationForm();
+		a.setDate(new Date());
+		applicationFormDao.updateInterviewStatus(1);
+		
+	}
+	
+	
+	@Test
+	public void test3() {
+		/*prizeInfoDao.addPrizeInfo(new PrizeInfo(-1,1,"1","1",new Date(),10000,"2"));
+		prizeInfoDao.deletePrizeInfo(1);
+		prizeInfoDao.queryByEId(1);
+		prizeInfoDao.updatePrizeInfo(new PrizeInfo(1,1,"1","1",new Date(),100,"2"));*/
+		//salaryDao.addSalary(new Salary());
+		//salaryDao.queryAll();
+		//salaryDao.queryByDate(new Date());
+		//salaryDao.queryByEId(1);
+		//wageDiscrepancyDao.addWageDiscrepancy(new WageDiscrepancy());
+		wageDiscrepancyDao.deleteWageDiscrepancy(1);
+		wageDiscrepancyDao.queryAllWageDiscrepancy();
 	}
 	
 }
