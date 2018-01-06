@@ -6,9 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.iotek.dao.HiringTableDao;
+import com.iotek.entity.HiringTable;
 import com.iotek.service.HiringTableService;
-
-import comiotek.entity.HiringTable;
 
 @Service("hiringTableService")
 public class HiringTableServiceImpl implements HiringTableService {

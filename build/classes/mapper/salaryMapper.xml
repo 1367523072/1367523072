@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.iotek.dao.SalaryDao">
+	<select id="queryByDate" parameterType="Date" resultType="Salary">
+		SELECT * FROM salarys WHERE date = #{date}
+	</select>
+	<select id="queryByEId" resultType="Salary">
+		SELECT * FROM salarys WHERE eId = #{eId}
+	</select>
+	<select id="queryAll" resultType="Salary">
+		SELECT * FROM salarys
+	</select>
+	<insert id="addSalary" parameterType="Salary">
+		INSERT INTO 
+			salarys(eId,eName,basePay,meritPay,overtimeWage,rewardsPunishmentsWages,socialSecurity,date) 
+		VALUES
+			(#{eId},#{eName},#{basePay},#{meritPay},#{overtimeWage},#{rewardsPunishmentsWages},#{socialSecurity},#{date})
+	</insert>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+

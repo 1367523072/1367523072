@@ -1,77 +1,104 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>管理员界面</title>
+<title>Insert title here</title>
 </head>
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/jquery-1.7.2.js"></script>
 <script type="text/javascript">
-	$(function(){
-		$(".div4").hide();
-		$(".close").click(function(){
-			var close = confirm("确认退出吗？");
-			if(close==true){
-				window.close();
-			}
-		});
-		
-		$(".a1").click(function(){
-			$(".div1").toggle();
-		});
-		
-		$(".button").click(function(){
-			$(".div4").toggle();
+	$(function() {
+		$(".button").click(function() {
+			window.history.back();
 		});
 	})
 </script>
-
-
 <body>
-	<div>
-		<b style="color: red">当前用户：${sessionScope.user.name}</b>
-		<a href="${pageContext.request.contextPath}/ApplicationManagement" class="a1">应聘管理</a>
-		<a href="${pageContext.request.contextPath}/depart">部门职位</a>
-		<a href="#">培训管理</a>
-		<a href="#">员工管理</a>
-		<a href="#">奖惩管理</a>
-		<a href="#">薪资管理</a>
-		<a href="#">工资异议</a>
-		<a href="#" class="close">退出</a>
-	</div>
-		
-	<div class="div1">
-		<table border="1">
-			<tr>
-				<td>序号</td>
-				<td>应聘者</td>
-				<td>投递时间</td>
-				<td>查看状态</td>
-				<td>面试状态</td>
-				<td colspan="2">操作</td>
-			</tr>
-			<c:forEach items="${requestScope.list}" var="list">
+	<c:if test="${empty requestScope.resume}">
+		<form action="${pageContext.request.contextPath}/resume" method="get">
+			<table border="1">
 				<tr>
-					<td>${list.id }</td>
-					<td>${list.uId }</td>
-					<td>
-							<f:formatDate value="${list.date }" pattern="yyyy-MM-dd"/>
-						</td>
-					<td>${list.status }</td>
-					<td>${list.interviewStatus }</td>
-					<td><a href="${pageContext.request.contextPath}/view?uId=${list.uId }" class="view">查看</a></td>
-					<td><a href="${pageContext.request.contextPath}/delete?id=${list.id }">删除</a></td>
+					<td colspan="4" align="center">简历</td>
 				</tr>
-			</c:forEach>
-		</table>
-	</div>
+				<tr>
+					<td>真实姓名</td>
+					<td><input type="text" style="color: gray" value="请输入真实姓名"
+						name="name" /></td>
+					<td>性别</td>
+					<td>男<input type="radio" value="男" name="gender" />女<input
+						type="radio" name="gender" value="女" />
+					</td>
+				</tr>
+				<tr>
+					<td>年龄</td>
+					<td><input type="text" style="color: gray" value="请输入:"
+						name="age" /></td>
+					<td>学历</td>
+					<td><select name="diploma">
+							<option value="高中及以下">高中及以下</option>
+							<option value="大学">大学</option>
+							<option value="研究生">研究生</option>
+							<option value="博士及以上">博士及以上</option>
+					</select></td>
+				</tr>
+				<tr>
+					<td>联系方式</td>
+					<td><input type="text" style="color: gray" value="请输入联系方式"
+						name="tel" /></td>
+					<td>e-mail</td>
+					<td><input type="text" style="color: gray" value="请输入e-mail"
+						name="email" /></td>
+				</tr>
+				<tr>
+					<td>应聘职位</td>
+					<td><select name="department">
+							<option value="部门">部门</option>
+					</select> <select name="position">
+							<option value="职位">职位</option>
+					</select></td>
+					<td>政治面貌</td>
+					<td><select name="politicalStatus">
+							<option value="普通群众">普通群众</option>
+							<option value="团员">团员</option>
+							<option value="党员">党员</option>
+							<option value="其他">其他</option>
+					</select></td>
+				</tr>
+				<tr>
+					<td>上份工作</td>
+					<td><input type="text" style="color: gray" value="请输入工作名称"
+						name="lastJob" /></td>
+					<td>工作经验</td>
+					<td><input type="text" style="color: gray" value="请输入几年工作经验"
+						name="workingExperience" /></td>
+				</tr>
+				<tr>
+					<td>期望薪资</td>
+					<td><select name="expectedSalary">
+							<option value="3000-4000">3000-4000</option>
+							<option value="4000-5000">4000-5000</option>
+							<option value="5000-6000">5000-6000</option>
+							<option value="6000-7000">6000-7000</option>
+					</select></td>
+					<td>兴趣爱好</td>
+					<td><input type="text" style="color: gray" value="请输入兴趣爱好"
+						name="hobbies" /> <input type="hidden" name="userId"
+						value="${sessionScope.user.id}" /></td>
+				</tr>
+				<tr>
+					<td colspan="2"><input type="submit" value="保存" /></td>
+					<td colspan="2"><input type="button" value="返回" class="button" /></td>
+				</tr>
+			</table>
+		</form>
+	</c:if>
 	
-	<div class="div3">
-		<table border="1">
+	<c:if test="${!empty requestScope.resume}">
+		<form action="${pageContext.request.contextPath}/resume" method="get">
+			<table border="1">
 				<tr>
 					<td colspan="4" align="center">简历</td>
 				</tr>
@@ -157,14 +184,13 @@
 						value="${sessionScope.user.id}" /></td>
 				</tr>
 				<tr>
-					<td colspan="2"><input type="button" value="面试" class="button"/></td>
-					<td colspan="2"><input type="button" value="返回" /></td>
+					<td colspan="2"><input type="submit" value="保存" /></td>
+					<td colspan="2"><input type="button" value="返回" class="button" /></td>
 				</tr>
 			</table>
-	</div>
-	<div class="div4">
-		日期：<input /> <input type="submit" value="确认"/>
-	</div>
+		</form>
+	</c:if>
+	
 	
 </body>
 </html>

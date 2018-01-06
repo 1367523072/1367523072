@@ -4,3 +4,4 @@
 晚上 二个实体类的 dao，service xml manager的部分页面
 第三天五个实体类的 dao，service xml 及测试
 晚上  1个实体类的 dao，service xml 整理了controller 部分页面
+第四天 游客反馈信息的提醒及处理 增加了一些方法  管理员应聘管理 部分

@@ -6,9 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.iotek.dao.FeedbackFormDao;
+import com.iotek.entity.FeedbackForm;
 import com.iotek.service.FeedbackFormService;
-
-import comiotek.entity.FeedbackForm;
 
 @Service("feedbackFormService")
 public class FeedbackFormServiceImpl implements FeedbackFormService {
@@ -23,6 +22,26 @@ public class FeedbackFormServiceImpl implements FeedbackFormService {
 	@Override
 	public List<FeedbackForm> queryByUIDAndStatus(int uId) {
 		return feedbackFormDao.queryByUIDAndStatus(uId);
+	}
+
+	@Override
+	public int addFeedbackForm(FeedbackForm feedbackForm) {
+		return feedbackFormDao.addFeedbackForm(feedbackForm);
+	}
+
+	@Override
+	public int updateHiring(int uId) {
+		return feedbackFormDao.updateHiring(uId);
+	}
+
+	@Override
+	public int updateStatus(int uId) {
+		return feedbackFormDao.updateStatus(uId);
+	}
+
+	@Override
+	public List<FeedbackForm> query(int uId) {
+		return feedbackFormDao.query(uId);
 	}
 
 }

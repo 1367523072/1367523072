@@ -1,6 +1,6 @@
 package com.iotek.service;
 
-import comiotek.entity.User;
+import com.iotek.entity.User;
 
 public interface UserService {
 	

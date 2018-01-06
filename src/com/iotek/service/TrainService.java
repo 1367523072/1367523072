@@ -2,7 +2,7 @@ package com.iotek.service;
 
 import java.util.List;
 
-import comiotek.entity.Train;
+import com.iotek.entity.Train;
 
 public interface TrainService {
 		//Ôö¼ÓÅàÑµ

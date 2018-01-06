@@ -2,7 +2,7 @@ package com.iotek.service;
 
 import java.util.List;
 
-import comiotek.entity.Position;
+import com.iotek.entity.Position;
 
 public interface PositionService {
 	//查看所有职位

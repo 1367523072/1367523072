@@ -2,7 +2,7 @@ package com.iotek.dao;
 
 import java.util.List;
 
-import comiotek.entity.Train;
+import com.iotek.entity.Train;
 
 public interface TrainDao {
 	//Ôö¼ÓÅàÑµ

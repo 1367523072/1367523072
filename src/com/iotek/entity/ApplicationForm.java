@@ -1,4 +1,4 @@
-package comiotek.entity;
+package com.iotek.entity;
 
 import java.util.Date;
 //Ó¦Æ¸±í

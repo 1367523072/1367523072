@@ -1,4 +1,4 @@
-package comiotek.entity;
+package com.iotek.entity;
 
 public class Resume {
 	private int id;

@@ -7,9 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.iotek.dao.SalaryDao;
+import com.iotek.entity.Salary;
 import com.iotek.service.SalaryService;
-
-import comiotek.entity.Salary;
 
 @Service("salaryService")
 public class SalaryServiceImpl implements SalaryService {

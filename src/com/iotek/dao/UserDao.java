@@ -1,6 +1,6 @@
 package com.iotek.dao;
 
-import comiotek.entity.User;
+import com.iotek.entity.User;
 
 public interface UserDao {
 	//ÓÎ¿Í×¢²á

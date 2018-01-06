@@ -2,7 +2,7 @@ package com.iotek.dao;
 
 import java.util.List;
 
-import comiotek.entity.WageDiscrepancy;
+import com.iotek.entity.WageDiscrepancy;
 
 public interface WageDiscrepancyDao {
 	//ÃÌº”“Ï“È

@@ -2,7 +2,7 @@ package com.iotek.service;
 
 import java.util.List;
 
-import comiotek.entity.WageDiscrepancy;
+import com.iotek.entity.WageDiscrepancy;
 
 public interface WageDiscrepancyService {
 	//ÃÌº”“Ï“È

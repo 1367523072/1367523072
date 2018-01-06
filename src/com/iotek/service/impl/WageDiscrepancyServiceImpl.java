@@ -6,9 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.iotek.dao.WageDiscrepancyDao;
+import com.iotek.entity.WageDiscrepancy;
 import com.iotek.service.WageDiscrepancyService;
-
-import comiotek.entity.WageDiscrepancy;
 
 @Service("wageDiscrepancyService")
 public class WageDiscrepancyServiceImpl implements WageDiscrepancyService {

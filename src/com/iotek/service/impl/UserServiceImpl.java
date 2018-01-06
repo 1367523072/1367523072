@@ -4,9 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.iotek.dao.UserDao;
+import com.iotek.entity.User;
 import com.iotek.service.UserService;
-
-import comiotek.entity.User;
 
 @Service("userService")
 public class UserServiceImpl implements UserService{

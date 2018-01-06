@@ -1,10 +1,10 @@
-package comiotek.entity;
+package com.iotek.entity;
 
 public class User {
 	private int id;
 	private String name;
 	private String password;
-	private int status=0;
+	private int status=0;//0 = 游客    1 = 管理员   2 = 员工    3 = 部门主管  
 	public int getId() {
 		return id;
 	}

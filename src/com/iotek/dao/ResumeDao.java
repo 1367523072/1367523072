@@ -2,7 +2,7 @@ package com.iotek.dao;
 
 import java.util.List;
 
-import comiotek.entity.Resume;
+import com.iotek.entity.Resume;
 
 public interface ResumeDao {
 	//Ìí¼Ó¼òÀú

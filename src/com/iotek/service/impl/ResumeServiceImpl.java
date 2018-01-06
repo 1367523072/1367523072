@@ -6,9 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.iotek.dao.ResumeDao;
+import com.iotek.entity.Resume;
 import com.iotek.service.ResumeService;
-
-import comiotek.entity.Resume;
 
 @Service("resumeService")
 public class ResumeServiceImpl implements ResumeService {

@@ -1,4 +1,4 @@
-package comiotek.entity;
+package com.iotek.entity;
 
 import java.util.Date;
 
@@ -9,6 +9,20 @@ public class FeedbackForm {
 	private Date date;//应聘表的date
 	private String status = "未查看";
 	private String interviewStatus = "按时面试";
+	private Date interviewTime;
+	private String hiring = "未录用";
+	public Date getInterviewTime() {
+		return interviewTime;
+	}
+	public void setInterviewTime(Date interviewTime) {
+		this.interviewTime = interviewTime;
+	}
+	public String getHiring() {
+		return hiring;
+	}
+	public void setHiring(String hiring) {
+		this.hiring = hiring;
+	}
 	public int getId() {
 		return id;
 	}
@@ -42,17 +56,21 @@ public class FeedbackForm {
 	public FeedbackForm() {
 		super();
 	}
-	public FeedbackForm(int id, int uId, Date date, String status, String interviewStatus) {
+	public FeedbackForm(int id, int uId, Date date, String status, String interviewStatus, Date interviewTime,
+			String hiring) {
 		super();
 		this.id = id;
 		this.uId = uId;
 		this.date = date;
 		this.status = status;
 		this.interviewStatus = interviewStatus;
+		this.interviewTime = interviewTime;
+		this.hiring = hiring;
 	}
 	@Override
 	public String toString() {
 		return "FeedbackForm [id=" + id + ", uId=" + uId + ", date=" + date + ", status=" + status
-				+ ", interviewStatus=" + interviewStatus + "]";
+				+ ", interviewStatus=" + interviewStatus + ", interviewTime=" + interviewTime + ", hiring=" + hiring
+				+ "]";
 	}
 }

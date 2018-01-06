@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -11,8 +13,13 @@
 <script type="text/javascript">
 	$(function(){
 		$(".div1").hide();
+		$(".div2").hide();
+		var FeedbackForms = $(".FeedbackForms").val();
+		if(FeedbackForms.length!=2){
+			alert("您有未查看的反馈信息");
+		}
 		$(".change").click(function(){
-			$(".div1").show();
+			$(".div1").toggle();
 		});
 		$(".submit").click(function(){
 			var old = $(".old").val();
@@ -52,19 +59,22 @@
 			});
 		});
 		
+		$(".applicationForm").click(function(){
+			$(".div2").toggle();
+		});
+		
 		$(".close").click(function(){
 			var close = confirm("确认退出吗？");
 			if(close==true){
 				window.close();
 			}
 		});
-		
 	})
 </script>
 <body>
 	<div>
 		<b style="color: red">当前用户：${sessionScope.user.name}</b>
-		<a href="#">反馈</a>
+		<a href="#" class="applicationForm">反馈</a>
 		<a href="${pageContext.request.contextPath}/watchResume">查看简历</a>
 		<a href="#" class="change">修改密码</a>
 		<a href="#">其他</a>
@@ -72,7 +82,7 @@
 	</div>
 	
 	<div class="div1">
-		<form action="${pageContext.request.contextPath}/modifyPassword">
+		<form>
 			<table border="1">
 			<caption>修改密码</caption>
 				<tr>
@@ -93,5 +103,67 @@
 			</table>
 		</form>
 	</div>
+	
+	<div class="div2">
+		<input class="FeedbackForms" type="hidden" value="${sessionScope.noFeedbackForms}">
+		<c:if test="${!empty sessionScope.noFeedbackForms}">
+			<table border="1">
+				<tr>
+					<td colspan="5"></td>
+				</tr>
+				<tr>
+					<td>投递时间</td>
+					<td>是否查看</td>
+					<td>是否面试</td>
+					<td>面试时间</td>
+					<td>是否录用</td>
+				</tr>
+				<c:forEach items="${sessionScope.noFeedbackForms}" var="FeedbackForm">
+					<tr>
+						<td>
+							<f:formatDate value="${FeedbackForm.date }" pattern="yyyy-MM-dd"/>
+						</td>
+						<td>${FeedbackForm.status }</td>
+						<td>${FeedbackForm.interviewStatus }</td>
+						<td>
+							<f:formatDate value="${FeedbackForm.interviewTime }" pattern="yyyy-MM-dd"/>
+						</td>
+						<td>${FeedbackForm.hiring }</td>
+				</tr>			
+				</c:forEach>
+			</table>
+			</c:if>
+			
+			<c:if test="${!empty sessionScope.query}">
+			<table border="1">
+				<tr>
+					<td colspan="5"></td>
+				</tr>
+				<tr>
+					<td>投递时间</td>
+					<td>是否查看</td>
+					<td>是否面试</td>
+					<td>面试时间</td>
+					<td>是否录用</td>
+				</tr>
+				<c:forEach items="${sessionScope.query}" var="query">
+					<tr>
+						<td>
+							<f:formatDate value="${query.date }" pattern="yyyy-MM-dd"/>
+						</td>
+						<td>${query.status }</td>
+						<td>${query.interviewStatus }</td>
+						<td>${query.date }</td>
+						<td>${query.date }</td>
+				</tr>			
+				</c:forEach>
+			</table>
+			</c:if>
+			<c:if test="${empty sessionScope.query}">
+				<b style="color: red">还没有反馈哦</b>
+			</c:if>
+	</div>
+	
+	
 </body>
 </html>

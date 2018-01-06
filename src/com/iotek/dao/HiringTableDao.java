@@ -2,7 +2,7 @@ package com.iotek.dao;
 
 import java.util.List;
 
-import comiotek.entity.HiringTable;
+import com.iotek.entity.HiringTable;
 
 public interface HiringTableDao {
 	//查看所有

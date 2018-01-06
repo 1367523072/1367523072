@@ -2,7 +2,7 @@ package com.iotek.service;
 
 import java.util.List;
 
-import comiotek.entity.Attendance;
+import com.iotek.entity.Attendance;
 
 public interface AttendanceService {
 		//查看所有考勤

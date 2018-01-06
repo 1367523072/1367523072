@@ -11,7 +11,7 @@
 		<property name="dataSource" ref="dataSource"></property>
 		<property name="mapperLocations" value="classpath:mapper/*.xml"></property>
 		<property name="configLocation" value="classpath:mybatis.xml"></property>
-		<property name="typeAliasesPackage" value="comiotek.entity"></property>
+		<property name="typeAliasesPackage" value="com.iotek.entity"></property>
 	</bean>
 	
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">

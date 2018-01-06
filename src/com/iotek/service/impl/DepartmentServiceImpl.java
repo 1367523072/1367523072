@@ -6,9 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.iotek.dao.DepartmentDao;
+import com.iotek.entity.Department;
 import com.iotek.service.DepartmentService;
-
-import comiotek.entity.Department;
 
 @Service("departmentService")
 public class DepartmentServiceImpl implements DepartmentService {

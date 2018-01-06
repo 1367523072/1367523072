@@ -6,9 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.iotek.dao.PositionDao;
+import com.iotek.entity.Position;
 import com.iotek.service.PositionService;
-
-import comiotek.entity.Position;
 
 @Service("positionService")
 public class PositionServiceImpl implements PositionService {

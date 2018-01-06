@@ -2,7 +2,7 @@ package com.iotek.dao;
 
 import java.util.List;
 
-import comiotek.entity.Department;
+import com.iotek.entity.Department;
 
 public interface DepartmentDao {
 	//查看所有部门

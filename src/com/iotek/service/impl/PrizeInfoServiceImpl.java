@@ -6,9 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.iotek.dao.PrizeInfoDao;
+import com.iotek.entity.PrizeInfo;
 import com.iotek.service.PrizeInfoService;
-
-import comiotek.entity.PrizeInfo;
 
 @Service("prizeInfoService")
 public class PrizeInfoServiceImpl implements PrizeInfoService {

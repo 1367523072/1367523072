@@ -11,17 +11,18 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.iotek.entity.ApplicationForm;
+import com.iotek.entity.Department;
+import com.iotek.entity.FeedbackForm;
+import com.iotek.entity.Position;
+import com.iotek.entity.Resume;
+import com.iotek.entity.User;
 import com.iotek.service.ApplicationFormService;
 import com.iotek.service.DepartmentService;
+import com.iotek.service.FeedbackFormService;
 import com.iotek.service.PositionService;
 import com.iotek.service.ResumeService;
 import com.iotek.service.UserService;
-
-import comiotek.entity.ApplicationForm;
-import comiotek.entity.Department;
-import comiotek.entity.Position;
-import comiotek.entity.Resume;
-import comiotek.entity.User;
 
 @Controller
 public class Controllers {
@@ -39,6 +40,9 @@ public class Controllers {
 	
 	@Autowired
 	private ApplicationFormService applicationFormService;
+	
+	@Autowired
+	private FeedbackFormService feedbackFormService;
 	
 	@ResponseBody
 	@RequestMapping("/regist")
@@ -72,10 +76,25 @@ public class Controllers {
 		User user = userService.find(name);
 		String data="";
 		if(user.getPassword().equals(password)) {
-			if(user.getStatus()==1) {
+			if(user.getStatus()==1) {  //管理员
 				data="2";
-			}else {
-			data="1";
+			}else if(user.getStatus()==0){//游客
+				data="1";
+				List<FeedbackForm> FeedbackForms = feedbackFormService.queryByUIDAndStatus(user.getId()); //未查看的反馈表
+				session.setAttribute("noFeedbackForms", FeedbackForms);
+				List<FeedbackForm> query = feedbackFormService.query(user.getId());//已查看的反馈表
+				session.setAttribute("query", query);
+				System.out.println(user.getId());
+				System.out.println(FeedbackForms);
+				ApplicationForm applicationForm = new ApplicationForm();  //添加简历，生成一份应聘表
+				applicationForm.setDate(new Date());
+				applicationForm.setuId(user.getId());
+				applicationFormService.addApplicationForm(applicationForm);
+				
+			}else if(user.getStatus()==2){             //员工
+				data="1";
+			}else {                                  //主管
+				data="1"; 
 			}
 			session.setAttribute("user", user);
 		}else {
@@ -127,6 +146,10 @@ public class Controllers {
 		Resume queryOneByUserId = resumeService.queryOneByUserId(user.getId());
 		if(queryOneByUserId==null) {
 			resumeService.addResume(resume);
+			FeedbackForm feedbackForm = new FeedbackForm();
+			feedbackForm.setuId(user.getId());
+			feedbackForm.setDate(new Date());
+			feedbackFormService.addFeedbackForm(feedbackForm);
 			ApplicationForm applicationForm = new ApplicationForm();
 			applicationForm.setuId(user.getId());
 			applicationForm.setDate(new Date());
@@ -137,10 +160,34 @@ public class Controllers {
 		return "resume";
 	}
 	@RequestMapping("/ApplicationManagement")
-	public String applicationManagement(Model model) {
+	public String applicationManagement(Model model) {    //查看应聘表
 		List<ApplicationForm> list = applicationFormService.queryAllApplicationForm();
 		model.addAttribute("list", list);
 		return "manager";
+	}
+	@RequestMapping("/view")
+	public String view(Model model,int uId) {       //查看简历
+		Resume resume = resumeService.queryOne(uId);
+		System.out.println(resume);
+		model.addAttribute("resume", resume);
+		return "manager";
+	}
+	@RequestMapping("/delete")
+	public String delete(Model model,int id) {       //删除应聘表
+		applicationFormService.deleteApplicationForm(id);
+		List<ApplicationForm> list = applicationFormService.queryAllApplicationForm();
+		model.addAttribute("list", list);
+		return "manager";
+	}
+	
+	@RequestMapping("/depart")
+	public String depart(Model model) {       //部门管理
+		List<Position> positions = positionService.queryAll();
+		List<Department> departments = departmentService.queryAllDepartment();
+		System.out.println(departments);
+		model.addAttribute("departments", departments);
+		model.addAttribute("positions", positions);
+		return "departManage";
 	}
 	
 	

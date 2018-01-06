@@ -3,7 +3,7 @@ package com.iotek.dao;
 import java.util.Date;
 import java.util.List;
 
-import comiotek.entity.Salary;
+import com.iotek.entity.Salary;
 
 public interface SalaryDao {
 	//根据date查询工资

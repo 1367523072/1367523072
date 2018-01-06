@@ -2,7 +2,7 @@ package com.iotek.dao;
 
 import java.util.List;
 
-import comiotek.entity.Attendance;
+import com.iotek.entity.Attendance;
 
 public interface AttendanceDao {
 	//查看所有考勤

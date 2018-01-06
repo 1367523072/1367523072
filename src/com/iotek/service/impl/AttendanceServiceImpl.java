@@ -6,9 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.iotek.dao.AttendanceDao;
+import com.iotek.entity.Attendance;
 import com.iotek.service.AttendanceService;
-
-import comiotek.entity.Attendance;
 
 @Service("attendanceService")
 public class AttendanceServiceImpl implements AttendanceService {

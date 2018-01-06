@@ -2,7 +2,7 @@ package com.iotek.service;
 
 import java.util.List;
 
-import comiotek.entity.ApplicationForm;
+import com.iotek.entity.ApplicationForm;
 
 public interface ApplicationFormService {
 		//查看所有应聘表

@@ -2,7 +2,7 @@ package com.iotek.dao;
 
 import java.util.List;
 
-import comiotek.entity.Position;
+import com.iotek.entity.Position;
 
 public interface PositionDao {
 	//查看所有职位

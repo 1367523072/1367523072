@@ -6,9 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.iotek.dao.TrainDao;
+import com.iotek.entity.Train;
 import com.iotek.service.TrainService;
-
-import comiotek.entity.Train;
 
 @Service("trainService")
 public class TrainServiceImpl implements TrainService{

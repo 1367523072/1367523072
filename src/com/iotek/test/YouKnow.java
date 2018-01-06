@@ -19,16 +19,15 @@ import com.iotek.dao.SalaryDao;
 import com.iotek.dao.TrainDao;
 import com.iotek.dao.UserDao;
 import com.iotek.dao.WageDiscrepancyDao;
-
-import comiotek.entity.ApplicationForm;
-import comiotek.entity.Department;
-import comiotek.entity.Position;
-import comiotek.entity.PrizeInfo;
-import comiotek.entity.Resume;
-import comiotek.entity.Salary;
-import comiotek.entity.Train;
-import comiotek.entity.User;
-import comiotek.entity.WageDiscrepancy;
+import com.iotek.entity.ApplicationForm;
+import com.iotek.entity.Department;
+import com.iotek.entity.Position;
+import com.iotek.entity.PrizeInfo;
+import com.iotek.entity.Resume;
+import com.iotek.entity.Salary;
+import com.iotek.entity.Train;
+import com.iotek.entity.User;
+import com.iotek.entity.WageDiscrepancy;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({"classpath:spring-mvc.xml", "classpath:spring-mybatis.xml", "classpath:spring.xml"})
@@ -119,6 +118,11 @@ public class YouKnow {
 		//wageDiscrepancyDao.addWageDiscrepancy(new WageDiscrepancy());
 		wageDiscrepancyDao.deleteWageDiscrepancy(1);
 		wageDiscrepancyDao.queryAllWageDiscrepancy();
+	}
+	@Test
+	public void test4() {
+		feedbackFormDao.updateHiring(3);
+		feedbackFormDao.updateStatus(3);
 	}
 	
 }

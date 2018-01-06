@@ -2,7 +2,7 @@ package com.iotek.dao;
 
 import java.util.List;
 
-import comiotek.entity.ApplicationForm;
+import com.iotek.entity.ApplicationForm;
 
 public interface ApplicationFormDao {
 	//查看所有应聘表

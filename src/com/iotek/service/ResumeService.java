@@ -2,7 +2,7 @@ package com.iotek.service;
 
 import java.util.List;
 
-import comiotek.entity.Resume;
+import com.iotek.entity.Resume;
 
 public interface ResumeService {
 		//Ìí¼Ó¼òÀú

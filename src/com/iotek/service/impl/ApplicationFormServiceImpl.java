@@ -6,9 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.iotek.dao.ApplicationFormDao;
+import com.iotek.entity.ApplicationForm;
 import com.iotek.service.ApplicationFormService;
-
-import comiotek.entity.ApplicationForm;
 
 @Service("applicationFormService")
 public class ApplicationFormServiceImpl implements ApplicationFormService {
@@ -34,7 +33,7 @@ public class ApplicationFormServiceImpl implements ApplicationFormService {
 	public int updateInterviewStatus(int id) {
 		return applicationFormDao.updateInterviewStatus(id);
 	}
-
+	
 	@Override
 	public int addApplicationForm(ApplicationForm applicationForm) {
 		return applicationFormDao.addApplicationForm(applicationForm);

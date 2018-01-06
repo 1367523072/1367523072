@@ -2,7 +2,7 @@ package com.iotek.service;
 
 import java.util.List;
 
-import comiotek.entity.PrizeInfo;
+import com.iotek.entity.PrizeInfo;
 
 public interface PrizeInfoService {
 		//根据eId 查询记录

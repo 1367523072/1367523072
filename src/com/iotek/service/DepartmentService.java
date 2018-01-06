@@ -2,7 +2,7 @@ package com.iotek.service;
 
 import java.util.List;
 
-import comiotek.entity.Department;
+import com.iotek.entity.Department;
 
 public interface DepartmentService {
 		//查看所有部门

@@ -2,7 +2,7 @@ package com.iotek.service;
 
 import java.util.List;
 
-import comiotek.entity.HiringTable;
+import com.iotek.entity.HiringTable;
 
 public interface HiringTableService {
 	//查看所有
