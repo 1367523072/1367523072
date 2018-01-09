@@ -11,6 +11,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.iotek.dao.ApplicationFormDao;
 import com.iotek.dao.DepartmentDao;
+import com.iotek.dao.EmployeeDao;
 import com.iotek.dao.FeedbackFormDao;
 import com.iotek.dao.PositionDao;
 import com.iotek.dao.PrizeInfoDao;
@@ -21,6 +22,7 @@ import com.iotek.dao.UserDao;
 import com.iotek.dao.WageDiscrepancyDao;
 import com.iotek.entity.ApplicationForm;
 import com.iotek.entity.Department;
+import com.iotek.entity.Employee;
 import com.iotek.entity.Position;
 import com.iotek.entity.PrizeInfo;
 import com.iotek.entity.Resume;
@@ -37,7 +39,7 @@ public class YouKnow {
 	@Autowired
 	private ResumeDao resumeDao;
 	@Autowired
-	private TrainDao trainDao;
+	private EmployeeDao employeeDao;
 	@Autowired
 	private FeedbackFormDao feedbackFormDao;
 	@Autowired
@@ -84,7 +86,7 @@ public class YouKnow {
 		//feedbackFormDao.queryByUIDAndStatus(6);
 		//trainDao.addTrain(new Train(1,"12",new Date(),"hujia"));
 		//trainDao.updateTrain(new Train(1,"13",new Date(),"hujia"));
-		trainDao.deleteTrain(1);
+		//trainDao.deleteTrain(1);	
 		//trainDao.queryAllTrain();
 		
 	}
@@ -121,8 +123,10 @@ public class YouKnow {
 	}
 	@Test
 	public void test4() {
-		feedbackFormDao.updateHiring(3);
-		feedbackFormDao.updateStatus(3);
+		//feedbackFormDao.updateHiring(3);
+		//feedbackFormDao.updateStatus(3);
+		Employee query = employeeDao.query(2);
+		employeeDao.del(2);
+		System.out.println(query);
 	}
-	
 }

@@ -44,4 +44,9 @@ public class FeedbackFormServiceImpl implements FeedbackFormService {
 		return feedbackFormDao.query(uId);
 	}
 
+	@Override
+	public List<FeedbackForm> queryAll() {
+		return feedbackFormDao.queryAll();
+	}
+
 }

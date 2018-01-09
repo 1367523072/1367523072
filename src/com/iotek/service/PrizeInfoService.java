@@ -5,12 +5,12 @@ import java.util.List;
 import com.iotek.entity.PrizeInfo;
 
 public interface PrizeInfoService {
-		//根据eId 查询记录
+		//根据eId 查询奖惩表
 		public List<PrizeInfo> queryByEId(int eId);
-		//添加记录
+		//添加奖惩表
 		public int addPrizeInfo(PrizeInfo prizeInfo);
-		//修改记录
+		//修改奖惩表
 		public int updatePrizeInfo(PrizeInfo prizeInfo);
-		//删除
+		//删除奖惩表
 		public int deletePrizeInfo(int id);
 }

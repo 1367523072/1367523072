@@ -2,11 +2,21 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.iotek.dao.AttendanceDao">
-	
-	<select id="queryAll" resultType="Attendance"></select>
-	<select id="queryOneAll" resultType="Attendance"></select>
-	<select id="queryOneMonth" resultType="Attendance"></select>
-	<select id="queryOneYear" resultType="Attendance"></select>
+	<select id="queryAll" resultType="Attendance">
+		SELECT * FROM attendances
+	</select>
+	<select id="queryOneAll" resultType="Attendance">
+		SELECT * FROM attendances WHERE userId = #{userId}
+	</select>
+	<insert id="addAttendance">
+		INSERT INTO 
+			attendances(userId,uName,officeHours) 
+		VALUES
+			(#{param1},#{param2},#{param3})
+	</insert>
+	<update id="addClosingTime">
+		UPDATE attendances SET closingTime = #{param2} WHERE id = #{param1}
+	</update>
 </mapper>
 
 

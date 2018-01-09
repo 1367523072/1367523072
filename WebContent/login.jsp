@@ -63,6 +63,10 @@ body {
 							alert("用户名与密码不匹配");
 						}else if(data==1){
 							window.location.href="skip.jsp";
+						}else if(data==3){
+							window.location.href="employee.jsp";
+						}else if(data==4){
+							window.location.href="Supervisor.jsp";
 						}else{
 							window.location.href="manager.jsp";
 						}

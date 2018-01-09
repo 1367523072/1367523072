@@ -17,4 +17,6 @@ public interface FeedbackFormService {
 		public int updateStatus(int uId);
 		//已查看的反馈表
 		public List<FeedbackForm> query(int uId);
+		//查看所有反馈表
+		public List<FeedbackForm> queryAll();
 }

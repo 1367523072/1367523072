@@ -1,5 +1,6 @@
 package com.iotek.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.iotek.dao.AttendanceDao;
 import com.iotek.entity.Attendance;
+import com.iotek.entity.User;
 import com.iotek.service.AttendanceService;
 
 @Service("attendanceService")
@@ -19,18 +21,18 @@ public class AttendanceServiceImpl implements AttendanceService {
 	}
 
 	@Override
-	public List<Attendance> queryOneAll(String uName) {
-		return attendanceDao.queryOneAll(uName);
+	public List<Attendance> queryOneAll(int userId) {
+		return attendanceDao.queryOneAll(userId);
 	}
 
 	@Override
-	public List<Attendance> queryOneMonth(String uName, int year, int month) {
-		return attendanceDao.queryOneMonth(uName, year, month);
+	public int addAttendance(int userId,String uName,Date date) {
+		return attendanceDao.addAttendance(userId, uName, date);
 	}
 
 	@Override
-	public List<Attendance> queryOneYear(String uName, int year) {
-		return attendanceDao.queryOneYear(uName, year);
+	public int addClosingTime(int id, Date date) {
+		return attendanceDao.addClosingTime(id, date);
 	}
 
 	

@@ -4,6 +4,7 @@ import java.util.Date;
 //¿¼ÇÚ
 public class Attendance {
 	private int id;
+	private int userId;
 	private String uName;
 	private Date officeHours;
 	private Date closingTime;
@@ -48,9 +49,17 @@ public class Attendance {
 	public Attendance() {
 		super();
 	}
-	public Attendance(int id, String uName, Date officeHours, Date closingTime, String late, String leaveEarly) {
+	public int getUserId() {
+		return userId;
+	}
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
+	public Attendance(int id, int userId, String uName, Date officeHours, Date closingTime, String late,
+			String leaveEarly) {
 		super();
 		this.id = id;
+		this.userId = userId;
 		this.uName = uName;
 		this.officeHours = officeHours;
 		this.closingTime = closingTime;
@@ -59,7 +68,7 @@ public class Attendance {
 	}
 	@Override
 	public String toString() {
-		return "Attendance [id=" + id + ", uName=" + uName + ", officeHours=" + officeHours + ", closingTime="
-				+ closingTime + ", late=" + late + ", leaveEarly=" + leaveEarly + "]";
+		return "Attendance [id=" + id + ", userId=" + userId + ", uName=" + uName + ", officeHours=" + officeHours
+				+ ", closingTime=" + closingTime + ", late=" + late + ", leaveEarly=" + leaveEarly + "]";
 	}
 }

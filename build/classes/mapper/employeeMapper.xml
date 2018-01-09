@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.iotek.dao.EmployeeDao">
+	<update id="update">
+		UPDATE employees SET resume = #{param1} WHERE id = #{param2}
+	</update>
+	<update id="del">
+		UPDATE employees SET status = 1 WHERE id = #{id}
+	</update>
+	<select id="query" resultType="Employee" resultMap="employeeResultMap">
+		SELECT * FROM employees WHERE userId = #{userId}
+	</select>
+	<resultMap type="Employee" id="employeeResultMap">
+		<association property="resume" column="r_id"
+			javaType="Resume" select="getResume"></association>
+		<collection property="salarys" ofType="Salary" column="s_id"
+			select="getSalarys"></collection>
+		<collection property="prizeInfos" ofType="PrizeInfo" column="p_id"
+			select="getPrizeInfos"></collection>
+		<collection property="attendances" ofType="Attendance" column="a_id"
+			select="getAttendances"></collection>
+	</resultMap>
+	<select id="getResume" resultType="Resume">
+		SELECT * FROM resumes WHERE userId = #{r_id}
+	</select>
+	<select id="getSalarys" resultType="Salary">
+		SELECT * FROM salarys WHERE eId = #{eId}
+	</select>
+	<select id="getPrizeInfos" resultType="PrizeInfo">
+		SELECT * FROM prizeinfos WHERE eId = #{eId}
+	</select>
+	<select id="getAttendances" resultType="Attendance">
+		SELECT * FROM attendances WHERE userId = #{userId}
+	</select>
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+

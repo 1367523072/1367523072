@@ -23,6 +23,9 @@
 	<select id="query" resultType="FeedbackForm">
 		SELECT * FROM feedbackForms WHERE uId = #{uId} AND status='已查看'
 	</select>
+	<select id="queryAll" resultType="FeedbackForm">
+		SELECT * FROM feedbackForms
+	</select>
 </mapper>
 
 

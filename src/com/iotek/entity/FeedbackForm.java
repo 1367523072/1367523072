@@ -9,7 +9,7 @@ public class FeedbackForm {
 	private Date date;//应聘表的date
 	private String status = "未查看";
 	private String interviewStatus = "按时面试";
-	private Date interviewTime;
+	private Date interviewTime;//面试时间
 	private String hiring = "未录用";
 	public Date getInterviewTime() {
 		return interviewTime;
