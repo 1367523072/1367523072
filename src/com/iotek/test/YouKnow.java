@@ -30,6 +30,7 @@ import com.iotek.entity.Salary;
 import com.iotek.entity.Train;
 import com.iotek.entity.User;
 import com.iotek.entity.WageDiscrepancy;
+import com.iotek.util.Util;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({"classpath:spring-mvc.xml", "classpath:spring-mybatis.xml", "classpath:spring.xml"})
@@ -123,9 +124,7 @@ public class YouKnow {
 	}
 	@Test
 	public void test4() {
-		//feedbackFormDao.updateHiring(3);
-		//feedbackFormDao.updateStatus(3);
-		
-		employeeDao.addEmployee(1,new Date());
+		Salary prizeInfo = new Salary();
+		System.out.println(prizeInfo);
 	}
 }

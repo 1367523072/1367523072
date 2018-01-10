@@ -84,7 +84,7 @@
 				</tr>
 				<tr>
 					<td>薪资</td>
-					<td>${requestScope.employee.salary}</td>
+					<td>${requestScope.employee.salarys}</td>
 					<td>兴趣爱好</td>
 					<td><input type="text" style="color: gray" value="${requestScope.employee.resume.hobbies}"
 						name="hobbies" /> <input type="hidden" name="userId"

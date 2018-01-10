@@ -9,7 +9,7 @@
 <title>个人考勤</title>
 </head>
 <body>
-	<table>
+	<table border="1">
 		<tr>
 			<td>姓名</td>
 			<td>上班时间</td>
@@ -20,8 +20,12 @@
 		<c:forEach items="${requestScope.employee.attendances}" var="attendance">
 			<tr>
 				<td>${attendance.uName}</td>
-				<td>${attendance.officeHours}</td>
-				<td>${attendance.closingTime}</td>
+				<td>
+					<f:formatDate value="${attendance.officeHours}" pattern="yyyy-MM-dd-HH"/>
+				</td>
+				<td>
+					<f:formatDate value="${attendance.closingTime}" pattern="yyyy-MM-dd-HH"/>
+				</td>
 				<td>${attendance.late}</td>
 				<td>${attendance.leaveEarly}</td>
 			</tr>

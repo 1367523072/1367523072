@@ -7,11 +7,11 @@ public class Salary {
 	private int eId;
 	private String eName;
 	private int total;
-	private int basePay;//基本工资
+	private int basePay = 6000;//基本工资
 	private int meritPay;//绩效工资
-	private int overtimeWage;//加班工资
+	private int overtimeWage = 0;//加班工资
 	private int RewardsPunishmentsWages;//奖惩工资
-	private int socialSecurity;//社保
+	private int socialSecurity = -500;//社保
 	private Date date;
 	public Date getDate() {
 		return date;

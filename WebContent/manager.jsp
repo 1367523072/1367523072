@@ -33,7 +33,7 @@
 		<a href="${pageContext.request.contextPath}/ApplicationManagement">应聘管理</a>
 		<a href="${pageContext.request.contextPath}/depart">部门职位</a>
 		<a href="${pageContext.request.contextPath}/train">培训管理</a>
-		<a href="${pageContext.request.contextPath}/employee">员工管理</a>
+		<a href="${pageContext.request.contextPath}/allEmployee">员工管理</a>
 		<a href="${pageContext.request.contextPath}/prizeInfo">奖惩管理</a>
 		<a href="${pageContext.request.contextPath}/salary">薪资管理</a>
 		<a href="${pageContext.request.contextPath}/wageDiscrepancy">工资异议</a>

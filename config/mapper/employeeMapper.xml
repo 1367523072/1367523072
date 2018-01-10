@@ -39,6 +39,15 @@
 		VALUES
 			(#{param1},#{param1},#{param1},#{param1},#{param2},#{param1},0)
 	</insert>
+	
+	<select id="queryAll" resultType="Employee" resultMap="employeeResultMap">
+		SELECT * FROM employees
+	</select>
+	
+	<select id="queryById" resultType="Employee" resultMap="employeeResultMap">
+		SELECT * FROM employees WHERE id=#{id}
+	</select>
+	
 </mapper>
 
 

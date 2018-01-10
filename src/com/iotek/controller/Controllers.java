@@ -17,7 +17,9 @@ import com.iotek.entity.Department;
 import com.iotek.entity.Employee;
 import com.iotek.entity.FeedbackForm;
 import com.iotek.entity.Position;
+import com.iotek.entity.PrizeInfo;
 import com.iotek.entity.Resume;
+import com.iotek.entity.Salary;
 import com.iotek.entity.Train;
 import com.iotek.entity.User;
 import com.iotek.entity.WageDiscrepancy;
@@ -254,18 +256,18 @@ public class Controllers {
 	}
 
 	@RequestMapping("/addTrains")
-	public String addTrains(Model model, String name, String dept) { // 添加培训
+	public String addTrains(HttpSession session, String name, String dept) { // 添加培训
 		Train train = new Train();
 		train.setName(name);
 		train.setDate(new Date());
 		train.setDept(dept);
 		trainService.addTrain(train);
 		List<Train> trains = trainService.queryAllTrain();
-		model.addAttribute("trains", trains);
+		session.setAttribute("trains", trains);
 		return "train";
 	}
 
-	@RequestMapping("/prizeInfo")
+	@RequestMapping("/")
 	public String prizeInfo(Model model, String name, String dept) { // 添加培训
 		Train train = new Train();
 		train.setName(name);
@@ -304,7 +306,7 @@ public class Controllers {
 	}
 
 	@RequestMapping("/salary")
-	public String salary(Model model, HttpSession session) { // 查看个人奖惩
+	public String salary(Model model, HttpSession session) { // 查看个人工资
 		User user = (User) session.getAttribute("user");
 		Employee employee = employeeService.query(user.getId());
 		model.addAttribute("employee", employee);
@@ -420,5 +422,54 @@ public class Controllers {
 		userService.changeStatus(userId);
 		System.out.println(query);
 		return "interResume";
+	}
+	@RequestMapping("/allEmployee")
+	public String allEmployee(Model model) { //查看所有员工
+		List<Employee> employees = employeeService.queryAll();
+		model.addAttribute("employees", employees);
+		return "allEmployee";
+	}
+	@RequestMapping("/dismiss")
+	@ResponseBody
+	public String dismiss(int id) { //开除员工
+		int i = employeeService.del(id);
+		String data = "";
+		if(i==0) {
+			data="0";
+		}else {
+			data="1";
+		}
+		return data;
+	}
+	@RequestMapping("/payoff")
+	@ResponseBody
+	public String payoff(int eId) { //发放工资
+		boolean sameDate = Util.isSameDate(new Date());
+		String data = "";
+		if(!sameDate) {
+			data="0";
+		}else {
+			List<PrizeInfo> prizeInfos = prizeInfoService.queryByEId(eId);
+			Employee employee = employeeService.query(eId);
+			System.out.println(employee);
+			Salary salary = new Salary();
+			salary.seteName(employee.getResume().getName());
+			int rewardsPunishmentsWages = 0;
+			if(prizeInfos != null) {
+				for (PrizeInfo prizeInfo : prizeInfos) {
+					rewardsPunishmentsWages += prizeInfo.getAmount();
+				}
+			}
+			salary.setRewardsPunishmentsWages(rewardsPunishmentsWages);
+			salaryService.addSalary(salary);
+			data="1";
+		}
+		return data;
+	}
+	@RequestMapping("/attendances")
+	public String attendances(Model model,int userId) { //查询考勤
+		List<Attendance> attendances = attendanceService.queryOneAll(userId);
+		model.addAttribute("attendances", attendances);
+		return "attendances";
 	}
 }
