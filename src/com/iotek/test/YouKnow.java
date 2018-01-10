@@ -125,8 +125,7 @@ public class YouKnow {
 	public void test4() {
 		//feedbackFormDao.updateHiring(3);
 		//feedbackFormDao.updateStatus(3);
-		Employee query = employeeDao.query(2);
-		employeeDao.del(2);
-		System.out.println(query);
+		
+		employeeDao.addEmployee(1,new Date());
 	}
 }

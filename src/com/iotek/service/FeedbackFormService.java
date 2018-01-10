@@ -19,4 +19,6 @@ public interface FeedbackFormService {
 		public List<FeedbackForm> query(int uId);
 		//查看所有反馈表
 		public List<FeedbackForm> queryAll();
+		//删除反馈表
+		public int del(int uId);
 }

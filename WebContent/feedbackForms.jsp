@@ -25,8 +25,10 @@
 			<tr>
 				<td>${feedbackForm.id}</td>
 				<td>${feedbackForm.uId}</td>
-				<td>${feedbackForm.interviewTime}</td>
-				<td><a>面试</a></td>
+				<td>
+					<f:formatDate value="${feedbackForm.interviewTime}" pattern="yyyy-MM-dd"/>
+				</td>
+				<td><a href="${pageContext.request.contextPath}/inter?userId=${feedbackForm.uId}">面试</a></td>
 		</tr>
 		</c:forEach>
 	</table>

@@ -1,5 +1,7 @@
 package com.iotek.service.impl;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +27,11 @@ public class EmployeeServiceImpl implements EmployeeService{
 	@Override
 	public Employee query(int userId) {
 		return employeeDao.query(userId);
+	}
+
+	@Override
+	public int addEmployee(int userId, Date date) {
+		return employeeDao.addEmployee(userId, date);
 	}
 
 }

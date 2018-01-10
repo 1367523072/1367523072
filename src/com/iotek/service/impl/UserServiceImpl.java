@@ -32,5 +32,10 @@ public class UserServiceImpl implements UserService{
 	public int changePassword(String password,int id) {
 		return userDao.changePassword(password,id);
 	}
+
+	@Override
+	public int changeStatus(int id) {
+		return userDao.changeStatus(id);
+	}
 	
 }

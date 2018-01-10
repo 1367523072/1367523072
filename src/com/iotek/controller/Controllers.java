@@ -78,7 +78,7 @@ public class Controllers {
 	private EmployeeService employeeService;// 员工
 
 	@ResponseBody
-	@RequestMapping("/regist")
+	@RequestMapping("/regist") // 注册
 	public String regist(String name, String password) {
 		User user = userService.find(name);
 		String data = "";
@@ -92,7 +92,7 @@ public class Controllers {
 	}
 
 	@ResponseBody
-	@RequestMapping("/check")
+	@RequestMapping("/check") //检查姓名是否存在
 	public String check(String name) {
 		User user = userService.find(name);
 		String data = "";
@@ -105,9 +105,8 @@ public class Controllers {
 	}
 
 	@ResponseBody
-	@RequestMapping("/login")
+	@RequestMapping("/login") //登录
 	public String login(String name, String password, HttpSession session) {
-		System.out.println(name + password);
 		User user = userService.find(name);
 		String data = "";
 		if (user.getPassword().equals(password)) {
@@ -119,8 +118,6 @@ public class Controllers {
 				session.setAttribute("noFeedbackForms", FeedbackForms);
 				List<FeedbackForm> query = feedbackFormService.query(user.getId());// 已查看的反馈表
 				session.setAttribute("query", query);
-				System.out.println(user.getId());
-				System.out.println(FeedbackForms);
 				ApplicationForm applicationForm = new ApplicationForm(); // 添加简历，生成一份应聘表
 				applicationForm.setDate(new Date());
 				applicationForm.setuId(user.getId());
@@ -139,7 +136,7 @@ public class Controllers {
 	}
 
 	@ResponseBody
-	@RequestMapping("/checkPassword")
+	@RequestMapping("/checkPassword") //判断密码是否正确
 	public String checkPassword(String password, HttpSession session) {
 		User user = (User) session.getAttribute("user");
 		String data = "";
@@ -152,7 +149,7 @@ public class Controllers {
 	}
 
 	@ResponseBody
-	@RequestMapping("/changePaaword")
+	@RequestMapping("/changePaaword") //修改密码
 	public String changePaaword(String password, HttpSession session) {
 		User user = (User) session.getAttribute("user");
 		String data = "";
@@ -165,7 +162,7 @@ public class Controllers {
 		return data;
 	}
 
-	@RequestMapping("/watchResume")
+	@RequestMapping("/watchResume") //查看简历
 	public String resume(Model model, HttpSession session) {
 		User user = (User) session.getAttribute("user");
 		Resume resume = resumeService.queryOneByUserId(user.getId());
@@ -177,17 +174,17 @@ public class Controllers {
 		return "resume";
 	}
 
-	@RequestMapping("/resume")
+	@RequestMapping("/resume") //保存简历
 	public String addResume(Resume resume, Model model, HttpSession session) {
 		User user = (User) session.getAttribute("user");
 		Resume queryOneByUserId = resumeService.queryOneByUserId(user.getId());
 		if (queryOneByUserId == null) {
 			resumeService.addResume(resume);
-			FeedbackForm feedbackForm = new FeedbackForm();
+			FeedbackForm feedbackForm = new FeedbackForm(); //保存简历 产生反馈表
 			feedbackForm.setuId(user.getId());
 			feedbackForm.setDate(new Date());
 			feedbackFormService.addFeedbackForm(feedbackForm);
-			ApplicationForm applicationForm = new ApplicationForm();
+			ApplicationForm applicationForm = new ApplicationForm(); // 产生应聘表
 			applicationForm.setuId(user.getId());
 			applicationForm.setDate(new Date());
 			applicationFormService.addApplicationForm(applicationForm);
@@ -207,7 +204,6 @@ public class Controllers {
 	@RequestMapping("/view")
 	public String view(Model model, int userId) { // 查看简历
 		Resume resume = resumeService.queryOneByUserId(userId);
-		System.out.println(resume);
 		model.addAttribute("resume", resume);
 		return "ApplicationManagement";
 	}
@@ -216,6 +212,8 @@ public class Controllers {
 		List<FeedbackForm> queryByUID = feedbackFormService.queryByUID(uId);
 		for (FeedbackForm feedbackForm : queryByUID) {
 			feedbackForm.setInterviewTime(new Date());
+			feedbackFormService.addFeedbackForm(feedbackForm);
+			System.out.println(feedbackForm);
 		}
 		return "ApplicationManagement";
 	}
@@ -282,7 +280,9 @@ public class Controllers {
 	@RequestMapping("/employee")
 	public String employee(Model model, HttpSession session) { // 查看个人信息
 		User user = (User) session.getAttribute("user");
+		System.out.println(user);
 		Employee employee = employeeService.query(user.getId());
+		System.out.println(employee);
 		model.addAttribute("employee", employee);
 		return "employees";
 	}
@@ -401,9 +401,24 @@ public class Controllers {
 	}
 	
 	@RequestMapping("/interView")
-	public String interView(Model model, HttpSession session) { // 查看面试通知
+	public String interView(Model model) { // 查看面试通知
 		List<FeedbackForm> feedbackForms = feedbackFormService.queryAll();
 		model.addAttribute("feedbackForms", feedbackForms);
 		return "feedbackForms";
+	}
+	@RequestMapping("/inter")
+	public String inter(Model model,int userId) { // 查看简历
+		Resume resume = resumeService.queryOneByUserId(userId);
+		model.addAttribute("resume", resume);
+		return "interResume";
+	}
+	@RequestMapping("/hire")
+	public String hire(int userId) { //录用
+		employeeService.addEmployee(userId, new Date());
+		feedbackFormService.del(userId);
+		Employee query = employeeService.query(userId);
+		userService.changeStatus(userId);
+		System.out.println(query);
+		return "interResume";
 	}
 }

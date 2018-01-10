@@ -33,7 +33,12 @@
 	<select id="getAttendances" resultType="Attendance">
 		SELECT * FROM attendances WHERE userId = #{userId}
 	</select>
-	
+	<insert id="addEmployee" >
+		INSERT INTO 
+			employees(userId,r_id,s_id,p_id,date,a_id,status) 
+		VALUES
+			(#{param1},#{param1},#{param1},#{param1},#{param2},#{param1},0)
+	</insert>
 </mapper>
 
 

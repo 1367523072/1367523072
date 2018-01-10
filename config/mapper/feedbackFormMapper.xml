@@ -26,6 +26,9 @@
 	<select id="queryAll" resultType="FeedbackForm">
 		SELECT * FROM feedbackForms
 	</select>
+	<delete id="del">
+		DELETE FROM feedbackForms WHERE uId = #{uId}
+	</delete>
 </mapper>
 
 

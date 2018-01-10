@@ -129,7 +129,7 @@
 					<td>兴趣爱好</td>
 					<td><input type="text" style="color: gray" value="${requestScope.resume.hobbies}"
 						name="hobbies" /> <input type="hidden" name="userId"
-						value="${sessionScope.user.id}" /></td>
+						value="${requestScope.resume.userId}" /></td>
 				</tr>
 				<tr>
 					<td colspan="2"><input type="button" value="面试" class="button"/></td>
@@ -139,7 +139,7 @@
 	</div>
 	<div class="div4">
 		<form action="${pageContext.request.contextPath}/interviewTime">
-			<input type="hidden" name="uId" value="${sessionScope.user.id}" />
+			<input type="hidden" name="uId" value="${requestScope.resume.userId}" />
 			日期：<input type="text" name="interviewTime"/>
 			<input type="submit" value="确认"/>
 		</form>

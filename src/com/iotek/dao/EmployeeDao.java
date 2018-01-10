@@ -1,5 +1,7 @@
 package com.iotek.dao;
 
+import java.util.Date;
+
 import com.iotek.entity.Employee;
 import com.iotek.entity.Resume;
 
@@ -10,4 +12,6 @@ public interface EmployeeDao {
 	public int del(int id);
 	//²é¿´
 	public Employee query(int userId);
+	//Ìí¼Ó
+	public int addEmployee(int userId,Date date);
 }

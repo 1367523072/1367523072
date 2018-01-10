@@ -12,5 +12,7 @@ public interface UserService {
 		public User find(String name);
 		//修改密码
 		public int changePassword(String password,int id);
+		//更改员工状态
+		public int changeStatus(int id);
 		
 }

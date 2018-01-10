@@ -49,4 +49,9 @@ public class FeedbackFormServiceImpl implements FeedbackFormService {
 		return feedbackFormDao.queryAll();
 	}
 
+	@Override
+	public int del(int uId) {
+		return feedbackFormDao.del(uId);
+	}
+
 }
