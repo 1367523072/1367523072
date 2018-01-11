@@ -1,5 +1,6 @@
 package com.iotek.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,11 @@ public class WageDiscrepancyServiceImpl implements WageDiscrepancyService {
 	@Override
 	public int deleteWageDiscrepancy(int id) {
 		return wageDiscrepancyDao.deleteWageDiscrepancy(id);
+	}
+
+	@Override
+	public WageDiscrepancy queryOneWageDiscrepancy(int id, Date date) {
+		return wageDiscrepancyDao.queryOneWageDiscrepancy(id, date);
 	}
 
 }

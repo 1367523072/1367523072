@@ -9,7 +9,7 @@ public interface SalaryDao {
 	//根据date查询工资
 	public List<Salary> queryByDate(Date date);
 	//根据eId查询工资
-	public List<Salary> queryByEId(int eId);
+	public List<Salary> queryByEId(int userId);
 	//查询所有工资条
 	public List<Salary> queryAll();
 	//添加工资条

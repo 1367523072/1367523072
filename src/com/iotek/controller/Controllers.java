@@ -1,5 +1,7 @@
 package com.iotek.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -309,23 +311,31 @@ public class Controllers {
 	public String salary(Model model, HttpSession session) { // 查看个人工资
 		User user = (User) session.getAttribute("user");
 		Employee employee = employeeService.query(user.getId());
+		System.out.println(employee);
 		model.addAttribute("employee", employee);
 		return "salary";
 	}
 
 	@RequestMapping("/wageDiscrepancy")
 	@ResponseBody
-	public String wageDiscrepancy(int id, String reason) { // 提出异议
-		WageDiscrepancy wageDiscrepancy = new WageDiscrepancy();
-		wageDiscrepancy.seteId(id);
-		wageDiscrepancy.setReason(reason);
-		wageDiscrepancy.setDate(new Date());
-		int i = wageDiscrepancyService.addWageDiscrepancy(wageDiscrepancy);
+	public String wageDiscrepancy(int id, String reason,Date date) { // 提出异议
 		String data = "";
-		if (i == 1) {
-			data = "1";
-		} else {
-			data = "0";
+		WageDiscrepancy wage = wageDiscrepancyService.queryOneWageDiscrepancy(id, date);
+		System.out.println(date);
+		System.out.println(wage);
+		if(wage!=null) {
+			data = "2";
+		}else {
+			WageDiscrepancy wageDiscrepancy = new WageDiscrepancy();
+			wageDiscrepancy.seteId(id);
+			wageDiscrepancy.setReason(reason);
+			wageDiscrepancy.setDate(date);
+			int i = wageDiscrepancyService.addWageDiscrepancy(wageDiscrepancy);
+			if (i == 1) {
+				data = "1";
+			} else {
+				data = "0";
+			}
 		}
 		return data;
 	}
@@ -443,16 +453,33 @@ public class Controllers {
 	}
 	@RequestMapping("/payoff")
 	@ResponseBody
-	public String payoff(int eId) { //发放工资
+	public String payoff(int userId,int id) { //发放工资
+		System.out.println(userId);
 		boolean sameDate = Util.isSameDate(new Date());
 		String data = "";
 		if(!sameDate) {
 			data="0";
 		}else {
-			List<PrizeInfo> prizeInfos = prizeInfoService.queryByEId(eId);
-			Employee employee = employeeService.query(eId);
+			SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");  
+			java.util.Date date=new java.util.Date();  
+			String str=sdf.format(date);
+			try {
+				date=sdf.parse(str);
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			List<Salary> list = salaryService.queryByDate(date);
+			for (Salary salary : list) {
+				if(salary.getUserId()==userId) {
+					data = "2";
+					return data;
+				}
+			}
+			List<PrizeInfo> prizeInfos = prizeInfoService.queryByEId(userId);
+			Employee employee = employeeService.queryById(id);
 			System.out.println(employee);
 			Salary salary = new Salary();
+			salary.setUserId(userId);
 			salary.seteName(employee.getResume().getName());
 			int rewardsPunishmentsWages = 0;
 			if(prizeInfos != null) {
@@ -461,6 +488,7 @@ public class Controllers {
 				}
 			}
 			salary.setRewardsPunishmentsWages(rewardsPunishmentsWages);
+			salary.setDate(new Date());
 			salaryService.addSalary(salary);
 			data="1";
 		}

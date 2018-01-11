@@ -25,13 +25,13 @@
 		SELECT * FROM resumes WHERE userId = #{r_id}
 	</select>
 	<select id="getSalarys" resultType="Salary">
-		SELECT * FROM salarys WHERE eId = #{eId}
+		SELECT * FROM salarys WHERE userId = #{s_id}
 	</select>
 	<select id="getPrizeInfos" resultType="PrizeInfo">
-		SELECT * FROM prizeinfos WHERE eId = #{eId}
+		SELECT * FROM prizeinfos WHERE userId = #{p_id}
 	</select>
 	<select id="getAttendances" resultType="Attendance">
-		SELECT * FROM attendances WHERE userId = #{userId}
+		SELECT * FROM attendances WHERE userId = #{a_id}
 	</select>
 	<insert id="addEmployee" >
 		INSERT INTO 

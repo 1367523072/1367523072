@@ -21,8 +21,8 @@ public class SalaryServiceImpl implements SalaryService {
 	}
 
 	@Override
-	public List<Salary> queryByEId(int eId) {
-		return salaryDao.queryByEId(eId);
+	public List<Salary> queryByEId(int userId) {
+		return salaryDao.queryByEId(userId);
 	}
 
 	@Override

@@ -1,5 +1,6 @@
 package com.iotek.test;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -124,7 +125,6 @@ public class YouKnow {
 	}
 	@Test
 	public void test4() {
-		Salary prizeInfo = new Salary();
-		System.out.println(prizeInfo);
+		wageDiscrepancyDao.queryOneWageDiscrepancy(2, new Date());
 	}
 }

@@ -5,7 +5,7 @@ import java.util.Date;
 //½±³Í±í
 public class PrizeInfo {
 	private int id;
-	private int eId;
+	private int userId;
 	private String eName;
 	private String reason;
 	private Date date;
@@ -17,11 +17,11 @@ public class PrizeInfo {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public int geteId() {
-		return eId;
+	public int getUserId() {
+		return userId;
 	}
-	public void seteId(int eId) {
-		this.eId = eId;
+	public void setUserId(int userId) {
+		this.userId = userId;
 	}
 	public String geteName() {
 		return eName;
@@ -56,10 +56,10 @@ public class PrizeInfo {
 	public PrizeInfo() {
 		super();
 	}
-	public PrizeInfo(int id, int eId, String eName, String reason, Date date, int amount, String type) {
+	public PrizeInfo(int id, int userId, String eName, String reason, Date date, int amount, String type) {
 		super();
 		this.id = id;
-		this.eId = eId;
+		this.userId = userId;
 		this.eName = eName;
 		this.reason = reason;
 		this.date = date;
@@ -68,7 +68,7 @@ public class PrizeInfo {
 	}
 	@Override
 	public String toString() {
-		return "PrizeInfo [id=" + id + ", eId=" + eId + ", eName=" + eName + ", reason=" + reason + ", date=" + date
+		return "PrizeInfo [id=" + id + ", userId=" + userId + ", eName=" + eName + ", reason=" + reason + ", date=" + date
 				+ ", amount=" + amount + ", type=" + type + "]";
 	}
 }

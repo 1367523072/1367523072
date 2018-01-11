@@ -1,5 +1,6 @@
 package com.iotek.service;
 
+import java.util.Date;
 import java.util.List;
 
 import com.iotek.entity.WageDiscrepancy;
@@ -11,4 +12,6 @@ public interface WageDiscrepancyService {
 	public List<WageDiscrepancy> queryAllWageDiscrepancy();
 	//删除异议
 	public int deleteWageDiscrepancy(int id);
+	//根据日期和员工id来查看
+	public WageDiscrepancy queryOneWageDiscrepancy(int id,Date date);
 }

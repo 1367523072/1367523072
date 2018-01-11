@@ -6,16 +6,16 @@
 		SELECT * FROM salarys WHERE date = #{date}
 	</select>
 	<select id="queryByEId" resultType="Salary">
-		SELECT * FROM salarys WHERE eId = #{eId}
+		SELECT * FROM salarys WHERE userId = #{userId}
 	</select>
 	<select id="queryAll" resultType="Salary">
 		SELECT * FROM salarys
 	</select>
 	<insert id="addSalary" parameterType="Salary">
 		INSERT INTO 
-			salarys(eId,eName,basePay,meritPay,overtimeWage,rewardsPunishmentsWages,socialSecurity,date) 
+			salarys(userId,eName,total,basePay,meritPay,overtimeWage,rewardsPunishmentsWages,socialSecurity,date) 
 		VALUES
-			(#{eId},#{eName},#{basePay},#{meritPay},#{overtimeWage},#{rewardsPunishmentsWages},#{socialSecurity},#{date})
+			(#{userId},#{eName},#{basePay}+#{meritPay}+#{overtimeWage}+#{rewardsPunishmentsWages}+#{socialSecurity},#{basePay},#{meritPay},#{overtimeWage},#{rewardsPunishmentsWages},#{socialSecurity},#{date})
 	</insert>
 </mapper>
 

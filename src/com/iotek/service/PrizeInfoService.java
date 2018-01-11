@@ -6,7 +6,7 @@ import com.iotek.entity.PrizeInfo;
 
 public interface PrizeInfoService {
 		//根据eId 查询奖惩表
-		public List<PrizeInfo> queryByEId(int eId);
+		public List<PrizeInfo> queryByEId(int userId);
 		//添加奖惩表
 		public int addPrizeInfo(PrizeInfo prizeInfo);
 		//修改奖惩表

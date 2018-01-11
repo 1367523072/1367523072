@@ -16,8 +16,8 @@ public class PrizeInfoServiceImpl implements PrizeInfoService {
 	private PrizeInfoDao prizeInfoDao;
 	
 	@Override
-	public List<PrizeInfo> queryByEId(int eId) {
-		return prizeInfoDao.queryByEId(eId);
+	public List<PrizeInfo> queryByEId(int userId) {
+		return prizeInfoDao.queryByEId(userId);
 	}
 
 	@Override
