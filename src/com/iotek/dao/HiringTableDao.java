@@ -12,7 +12,7 @@ public interface HiringTableDao {
 	//É¾³ı
 	public int deleteHiringTable(int id);
 	//¸üĞÂ
-	public int updateHiringTable(int id);
+	public int updateHiringTable(HiringTable hiringTable);
 	//Ìí¼Ó
 	public int addHiringTable(HiringTable HiringTable);
 	

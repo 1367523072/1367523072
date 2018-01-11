@@ -29,13 +29,13 @@ public class HiringTableServiceImpl implements HiringTableService {
 	}
 
 	@Override
-	public int updateHiringTable(int id) {
-		return hiringTableDao.updateHiringTable(id);
+	public int updateHiringTable(HiringTable hiringTable) {
+		return hiringTableDao.updateHiringTable(hiringTable);
 	}
 
 	@Override
-	public int addHiringTable(HiringTable HiringTable) {
-		return hiringTableDao.addHiringTable(HiringTable);
+	public int addHiringTable(HiringTable hiringTable) {
+		return hiringTableDao.addHiringTable(hiringTable);
 	}
 
 }

@@ -20,6 +20,11 @@
 	<select id="queryOneWageDiscrepancy" resultType="WageDiscrepancy">
 		SELECT * FROM wageDiscrepancys WHERE eId = #{param1} AND date = #{param2}
 	</select>
+	
+	<select id="queryOne" resultType="WageDiscrepancy">
+		SELECT * FROM wageDiscrepancys WHERE id = #{id}
+	</select>
+	
 </mapper>
 
 

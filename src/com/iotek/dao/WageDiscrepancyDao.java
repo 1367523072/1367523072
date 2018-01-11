@@ -14,4 +14,6 @@ public interface WageDiscrepancyDao {
 	public int deleteWageDiscrepancy(int id);
 	//根据日期和员工id来查看
 	public WageDiscrepancy queryOneWageDiscrepancy(int id,Date date);
+	//根据异议id来查看
+	public WageDiscrepancy queryOne(int id);
 }

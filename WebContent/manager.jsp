@@ -30,13 +30,14 @@
 	<div>
 		<b style="color: red">当前用户：${sessionScope.user.name}</b>
 		<a href="${pageContext.request.contextPath}/employee.jsp">办公</a>
+		<a href="${pageContext.request.contextPath}/hiringTable">招聘管理</a>
 		<a href="${pageContext.request.contextPath}/ApplicationManagement">应聘管理</a>
 		<a href="${pageContext.request.contextPath}/depart">部门职位</a>
 		<a href="${pageContext.request.contextPath}/train">培训管理</a>
 		<a href="${pageContext.request.contextPath}/allEmployee">员工管理</a>
 		<a href="${pageContext.request.contextPath}/prizeInfo">奖惩管理</a>
 		<a href="${pageContext.request.contextPath}/salary">薪资管理</a>
-		<a href="${pageContext.request.contextPath}/wageDiscrepancy">工资异议</a>
+		<a href="${pageContext.request.contextPath}/viewWageDiscrepancy">工资异议</a>
 		<a href="#" class="close">退出</a>
 	</div>
 	

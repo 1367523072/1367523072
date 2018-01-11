@@ -9,6 +9,7 @@
 <title>奖惩</title>
 </head>
 <body>
+<c:if test="${!empty requestScope.employee.prizeInfos}">
 	<table>
 		<tr>
 			<td>姓名</td>
@@ -29,5 +30,9 @@
 			</tr>
 		</c:forEach>
 	</table>
+</c:if>
+<c:if test="${empty requestScope.employee.prizeInfos}">
+	你还没有奖惩信息！！
+</c:if>
 </body>
 </html>

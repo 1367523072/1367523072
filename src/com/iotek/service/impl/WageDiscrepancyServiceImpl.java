@@ -35,4 +35,9 @@ public class WageDiscrepancyServiceImpl implements WageDiscrepancyService {
 		return wageDiscrepancyDao.queryOneWageDiscrepancy(id, date);
 	}
 
+	@Override
+	public WageDiscrepancy queryOne(int id) {
+		return wageDiscrepancyDao.queryOne(id);
+	}
+
 }

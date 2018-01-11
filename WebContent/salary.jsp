@@ -39,6 +39,7 @@
 	})
 </script>
 <body>
+<c:if test="${!empty requestScope.employee.salarys}">
 	<table border="1">
 		<tr>
 			<td>姓名</td>
@@ -67,5 +68,10 @@
 			</tr>
 		</c:forEach>
 	</table>
+</c:if>
+<c:if test="${empty requestScope.employee.salarys}">
+还没有你的工资发放记录！！
+</c:if>
+
 </body>
 </html>

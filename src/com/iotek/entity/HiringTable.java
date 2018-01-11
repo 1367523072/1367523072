@@ -5,6 +5,12 @@ public class HiringTable {
 	private int id;
 	private String dept;
 	private String position;
+	public HiringTable(String dept, String position, String status) {
+		super();
+		this.dept = dept;
+		this.position = position;
+		this.status = status;
+	}
 	private String status;
 	public int getId() {
 		return id;

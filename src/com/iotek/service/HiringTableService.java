@@ -12,7 +12,7 @@ public interface HiringTableService {
 	//删除招聘信息
 	public int deleteHiringTable(int id);
 	//更新招聘信息
-	public int updateHiringTable(int id);
+	public int updateHiringTable(HiringTable hiringTable);
 	//添加招聘信息
-	public int addHiringTable(HiringTable HiringTable);
+	public int addHiringTable(HiringTable hiringTable);
 }

@@ -35,4 +35,9 @@ public class SalaryServiceImpl implements SalaryService {
 		return salaryDao.addSalary(salary);
 	}
 
+	@Override
+	public Salary queryByeIdDate(int eId, Date date) {
+		return salaryDao.queryByeIdDate(eId, date);
+	}
+
 }

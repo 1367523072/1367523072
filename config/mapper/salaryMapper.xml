@@ -17,6 +17,11 @@
 		VALUES
 			(#{userId},#{eName},#{basePay}+#{meritPay}+#{overtimeWage}+#{rewardsPunishmentsWages}+#{socialSecurity},#{basePay},#{meritPay},#{overtimeWage},#{rewardsPunishmentsWages},#{socialSecurity},#{date})
 	</insert>
+	
+	<select id="queryByeIdDate" resultType="Salary">
+		SELECT * FROM salarys WHERE userId = #{param1} AND date = #{param2}
+	</select>
+	
 </mapper>
 
 

@@ -2,6 +2,7 @@ package com.iotek.controller;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -18,6 +19,7 @@ import com.iotek.entity.Attendance;
 import com.iotek.entity.Department;
 import com.iotek.entity.Employee;
 import com.iotek.entity.FeedbackForm;
+import com.iotek.entity.HiringTable;
 import com.iotek.entity.Position;
 import com.iotek.entity.PrizeInfo;
 import com.iotek.entity.Resume;
@@ -320,9 +322,11 @@ public class Controllers {
 	@ResponseBody
 	public String wageDiscrepancy(int id, String reason,Date date) { // 提出异议
 		String data = "";
+		Calendar c = Calendar.getInstance();
+		c.setTime(date);
+		c.add(Calendar.MINUTE, -14*60);
+		date = c.getTime();
 		WageDiscrepancy wage = wageDiscrepancyService.queryOneWageDiscrepancy(id, date);
-		System.out.println(date);
-		System.out.println(wage);
 		if(wage!=null) {
 			data = "2";
 		}else {
@@ -454,7 +458,6 @@ public class Controllers {
 	@RequestMapping("/payoff")
 	@ResponseBody
 	public String payoff(int userId,int id) { //发放工资
-		System.out.println(userId);
 		boolean sameDate = Util.isSameDate(new Date());
 		String data = "";
 		if(!sameDate) {
@@ -499,5 +502,48 @@ public class Controllers {
 		List<Attendance> attendances = attendanceService.queryOneAll(userId);
 		model.addAttribute("attendances", attendances);
 		return "attendances";
+	}
+	@RequestMapping("/hiringTable")
+	public String hiringTable(Model model) { //招聘管理
+		List<HiringTable> hiringTables = hiringTableService.queryAll();
+		model.addAttribute("hiringTables", hiringTables);
+		return "hiringTable";
+	}
+	@RequestMapping("/addhiringTable")
+	public String addhiringTable(Model model,String department,String position,String status) { //添加招聘
+		hiringTableService.addHiringTable(new HiringTable(department,position,status));
+		List<HiringTable> hiringTables = hiringTableService.queryAll();
+		model.addAttribute("hiringTables", hiringTables);
+		return "hiringTable";
+	}
+	@RequestMapping("/delhiringTable")
+	public String delhiringTable(Model model,int id) { //删除招聘
+		hiringTableService.deleteHiringTable(id);
+		List<HiringTable> hiringTables = hiringTableService.queryAll();
+		model.addAttribute("hiringTables", hiringTables);
+		return "hiringTable";
+	}
+	@RequestMapping("/viewWageDiscrepancy")
+	public String viewWageDiscrepancy(Model model) { //查看异议
+		List<WageDiscrepancy> wageDiscrepancys = wageDiscrepancyService.queryAllWageDiscrepancy();
+		model.addAttribute("wageDiscrepancys", wageDiscrepancys);
+		return "wageDiscrepancys";
+	}
+	@RequestMapping("/append")
+	@ResponseBody
+	public String append(int id,Date date) { //查看工资条
+		Calendar c = Calendar.getInstance();
+		c.setTime(date);
+		c.add(Calendar.MINUTE, -14*60);
+		date = c.getTime();
+		Employee employee = employeeService.queryById(id);
+		Salary salary = salaryService.queryByeIdDate(employee.getUserId(), date);
+		System.out.println(salary);
+		String data = "";
+		data = salary.geteName()+"+"+salary.getTotal()+"+"+salary.getBasePay()
+		+"+"+salary.getMeritPay()+"+"+salary.getOvertimeWage()
+		+"+"+salary.getRewardsPunishmentsWages()+"+"+salary.getSocialSecurity()+"+"+salary.getDate();
+		System.out.println(data);
+		return data;
 	}
 }

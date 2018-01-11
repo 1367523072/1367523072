@@ -14,4 +14,6 @@ public interface SalaryService {
 	public List<Salary> queryAll();
 	//添加工资条
 	public int addSalary(Salary salary);
+	//根据eId和date查询工资
+	public Salary queryByeIdDate(int eId,Date date);
 }
