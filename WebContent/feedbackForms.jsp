@@ -14,6 +14,7 @@
 
 </script>
 <body>
+<c:if test="${!empty requestScope.feedbackForms}">
 	<table>
 		<tr>
 			<td>序号</td>
@@ -32,5 +33,9 @@
 		</tr>
 		</c:forEach>
 	</table>
+</c:if>
+<c:if test="${empty requestScope.feedbackForms}">
+	还没有面试通知！
+</c:if>
 </body>
 </html>

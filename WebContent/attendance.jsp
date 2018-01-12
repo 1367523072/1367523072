@@ -9,6 +9,7 @@
 <title>个人考勤</title>
 </head>
 <body>
+<c:if test="${!empty requestScope.employee.attendances}">
 	<table border="1">
 		<tr>
 			<td>姓名</td>
@@ -31,5 +32,10 @@
 			</tr>
 		</c:forEach>
 	</table>
+</c:if>
+
+<c:if test="${empty requestScope.employee.attendances}">
+还没有考勤！
+</c:if>
 </body>
 </html>

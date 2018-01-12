@@ -33,6 +33,7 @@ import com.iotek.service.DepartmentService;
 import com.iotek.service.EmployeeService;
 import com.iotek.service.FeedbackFormService;
 import com.iotek.service.HiringTableService;
+import com.iotek.service.PerformanceService;
 import com.iotek.service.PositionService;
 import com.iotek.service.PrizeInfoService;
 import com.iotek.service.ResumeService;
@@ -82,6 +83,9 @@ public class Controllers {
 
 	@Autowired
 	private EmployeeService employeeService;// 员工
+	
+	@Autowired
+	private PerformanceService performanceService;// 绩效
 
 	@ResponseBody
 	@RequestMapping("/regist") // 注册
@@ -399,7 +403,7 @@ public class Controllers {
 				} else {
 					a.setLate("正常上班");
 				}
-				int j = a.getClosingTime().getHours();
+				int j = new Date().getHours();
 				if (j > 17 && j <= 18) {
 					a.setLate("正常下班");
 				} else if (i <17&& j >= 16) {
@@ -458,13 +462,13 @@ public class Controllers {
 	@RequestMapping("/payoff")
 	@ResponseBody
 	public String payoff(int userId,int id) { //发放工资
-		boolean sameDate = Util.isSameDate(new Date());
+		boolean sameDate = Util.isSameDate(new Date());  //判断是否是发工资的日子
 		String data = "";
-		if(!sameDate) {
+		if(!sameDate) { //不是发工资的日子
 			data="0";
 		}else {
 			SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");  
-			java.util.Date date=new java.util.Date();  
+			Date date=new Date();  
 			String str=sdf.format(date);
 			try {
 				date=sdf.parse(str);
@@ -544,6 +548,26 @@ public class Controllers {
 		+"+"+salary.getMeritPay()+"+"+salary.getOvertimeWage()
 		+"+"+salary.getRewardsPunishmentsWages()+"+"+salary.getSocialSecurity()+"+"+salary.getDate();
 		System.out.println(data);
+		return data;
+	}
+	@RequestMapping("/alltrain")
+	public String alltrain(Model model) { //所有培训
+		List<Train> trains = trainService.queryAllTrain();
+		model.addAttribute("trains", trains);
+		return "Supervisor";
+	}
+	
+	@RequestMapping("/performance")
+	public String performance(Model model) { //查询所有员工
+		List<Employee> employees = employeeService.queryAll();
+		model.addAttribute("employees", employees);
+		return "Supervisor";
+	}
+	@RequestMapping("/addPerfor")
+	@ResponseBody
+	public String addPerfor(int userId,int number) { //添加绩效
+		String data = "";
+		
 		return data;
 	}
 }
