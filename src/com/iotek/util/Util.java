@@ -23,7 +23,7 @@ public class Util {
 	public static boolean isSameDate(Date date) { //≈–∂œ «∑Ò «10∫≈
 	       Calendar cal = Calendar.getInstance();
 	       cal.setTime(date);
-	       boolean isSameDate = cal.get(Calendar.DAY_OF_MONTH)==11;
+	       boolean isSameDate = cal.get(Calendar.DAY_OF_MONTH)==12;
 	       return isSameDate;
 	   }
 }

@@ -27,6 +27,11 @@
 				data:{number:number,userId:userId},
 				success:function(data){
 					alert(data);
+					if(data==0){
+						alert("本月你已经为该员工填过绩效表了");
+					}else{
+						alert("添加成功");
+					}
 				}
 			});
 		});

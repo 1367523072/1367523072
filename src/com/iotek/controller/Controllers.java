@@ -6,9 +6,11 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +22,7 @@ import com.iotek.entity.Department;
 import com.iotek.entity.Employee;
 import com.iotek.entity.FeedbackForm;
 import com.iotek.entity.HiringTable;
+import com.iotek.entity.Performance;
 import com.iotek.entity.Position;
 import com.iotek.entity.PrizeInfo;
 import com.iotek.entity.Resume;
@@ -42,6 +45,8 @@ import com.iotek.service.TrainService;
 import com.iotek.service.UserService;
 import com.iotek.service.WageDiscrepancyService;
 import com.iotek.util.Util;
+
+import net.sf.json.JSONArray;
 
 @Controller
 public class Controllers {
@@ -83,7 +88,7 @@ public class Controllers {
 
 	@Autowired
 	private EmployeeService employeeService;// 员工
-	
+
 	@Autowired
 	private PerformanceService performanceService;// 绩效
 
@@ -102,7 +107,7 @@ public class Controllers {
 	}
 
 	@ResponseBody
-	@RequestMapping("/check") //检查姓名是否存在
+	@RequestMapping("/check") // 检查姓名是否存在
 	public String check(String name) {
 		User user = userService.find(name);
 		String data = "";
@@ -115,7 +120,7 @@ public class Controllers {
 	}
 
 	@ResponseBody
-	@RequestMapping("/login") //登录
+	@RequestMapping("/login") // 登录
 	public String login(String name, String password, HttpSession session) {
 		User user = userService.find(name);
 		String data = "";
@@ -146,7 +151,7 @@ public class Controllers {
 	}
 
 	@ResponseBody
-	@RequestMapping("/checkPassword") //判断密码是否正确
+	@RequestMapping("/checkPassword") // 判断密码是否正确
 	public String checkPassword(String password, HttpSession session) {
 		User user = (User) session.getAttribute("user");
 		String data = "";
@@ -159,7 +164,7 @@ public class Controllers {
 	}
 
 	@ResponseBody
-	@RequestMapping("/changePaaword") //修改密码
+	@RequestMapping("/changePaaword") // 修改密码
 	public String changePaaword(String password, HttpSession session) {
 		User user = (User) session.getAttribute("user");
 		String data = "";
@@ -172,10 +177,11 @@ public class Controllers {
 		return data;
 	}
 
-	@RequestMapping("/watchResume") //查看简历
+	@RequestMapping("/watchResume") // 查看简历
 	public String resume(Model model, HttpSession session) {
 		User user = (User) session.getAttribute("user");
 		Resume resume = resumeService.queryOneByUserId(user.getId());
+		System.out.println(resume);
 		List<Department> departments = departmentService.queryAllDepartment();
 		List<Position> positions = positionService.queryAll();
 		model.addAttribute("departments", departments);
@@ -183,14 +189,26 @@ public class Controllers {
 		model.addAttribute("resume", resume);
 		return "resume";
 	}
+	
+	@RequestMapping("/linkage") // 部门职位二级联动
+	@ResponseBody
+	public String  linkage(String dept) {
+		List<Position> positions = positionService.queryByDepartment(dept);
+		String data = "";
+		for (Position position : positions) {
+			data += position.getName()+"+";
+		}
+		System.out.println(data);
+		return data;
+	}
 
-	@RequestMapping("/resume") //保存简历
+	@RequestMapping("/resume") // 保存简历
 	public String addResume(Resume resume, Model model, HttpSession session) {
 		User user = (User) session.getAttribute("user");
 		Resume queryOneByUserId = resumeService.queryOneByUserId(user.getId());
 		if (queryOneByUserId == null) {
 			resumeService.addResume(resume);
-			FeedbackForm feedbackForm = new FeedbackForm(); //保存简历 产生反馈表
+			FeedbackForm feedbackForm = new FeedbackForm(); // 保存简历 产生反馈表
 			feedbackForm.setuId(user.getId());
 			feedbackForm.setDate(new Date());
 			feedbackFormService.addFeedbackForm(feedbackForm);
@@ -201,6 +219,10 @@ public class Controllers {
 		} else {
 			resumeService.updateResume(resume);
 		}
+		List<Department> departments = departmentService.queryAllDepartment();
+		List<Position> positions = positionService.queryAll();
+		model.addAttribute("departments", departments);
+		model.addAttribute("positions", positions);
 		return "resume";
 	}
 
@@ -214,11 +236,14 @@ public class Controllers {
 	@RequestMapping("/view")
 	public String view(Model model, int userId) { // 查看简历
 		Resume resume = resumeService.queryOneByUserId(userId);
+		List<ApplicationForm> list = applicationFormService.queryAllApplicationForm();
+		model.addAttribute("list", list);
 		model.addAttribute("resume", resume);
 		return "ApplicationManagement";
 	}
+
 	@RequestMapping("/interviewTime")
-	public String interviewTime(Model model, int uId,String interviewTime) { // 确定面试时间
+	public String interviewTime(Model model, int uId, String interviewTime) { // 确定面试时间
 		List<FeedbackForm> queryByUID = feedbackFormService.queryByUID(uId);
 		for (FeedbackForm feedbackForm : queryByUID) {
 			feedbackForm.setInterviewTime(new Date());
@@ -324,16 +349,16 @@ public class Controllers {
 
 	@RequestMapping("/wageDiscrepancy")
 	@ResponseBody
-	public String wageDiscrepancy(int id, String reason,Date date) { // 提出异议
+	public String wageDiscrepancy(int id, String reason, Date date) { // 提出异议
 		String data = "";
 		Calendar c = Calendar.getInstance();
 		c.setTime(date);
-		c.add(Calendar.MINUTE, -14*60);
+		c.add(Calendar.MINUTE, -14 * 60);
 		date = c.getTime();
 		WageDiscrepancy wage = wageDiscrepancyService.queryOneWageDiscrepancy(id, date);
-		if(wage!=null) {
+		if (wage != null) {
 			data = "2";
-		}else {
+		} else {
 			WageDiscrepancy wageDiscrepancy = new WageDiscrepancy();
 			wageDiscrepancy.seteId(id);
 			wageDiscrepancy.setReason(reason);
@@ -406,7 +431,7 @@ public class Controllers {
 				int j = new Date().getHours();
 				if (j > 17 && j <= 18) {
 					a.setLate("正常下班");
-				} else if (i <17&& j >= 16) {
+				} else if (i < 17 && j >= 16) {
 					a.setLate("早退");
 				} else {
 					a.setLate("旷工");
@@ -419,21 +444,23 @@ public class Controllers {
 		}
 		return data;
 	}
-	
+
 	@RequestMapping("/interView")
 	public String interView(Model model) { // 查看面试通知
 		List<FeedbackForm> feedbackForms = feedbackFormService.queryAll();
 		model.addAttribute("feedbackForms", feedbackForms);
 		return "feedbackForms";
 	}
+
 	@RequestMapping("/inter")
-	public String inter(Model model,int userId) { // 查看简历
+	public String inter(Model model, int userId) { // 查看简历
 		Resume resume = resumeService.queryOneByUserId(userId);
 		model.addAttribute("resume", resume);
 		return "interResume";
 	}
+
 	@RequestMapping("/hire")
-	public String hire(int userId) { //录用
+	public String hire(int userId) { // 录用
 		employeeService.addEmployee(userId, new Date());
 		feedbackFormService.del(userId);
 		Employee query = employeeService.query(userId);
@@ -441,55 +468,62 @@ public class Controllers {
 		System.out.println(query);
 		return "interResume";
 	}
+
 	@RequestMapping("/allEmployee")
-	public String allEmployee(Model model) { //查看所有员工
+	public String allEmployee(Model model) { // 查看所有员工
 		List<Employee> employees = employeeService.queryAll();
 		model.addAttribute("employees", employees);
 		return "allEmployee";
 	}
+
 	@RequestMapping("/dismiss")
 	@ResponseBody
-	public String dismiss(int id) { //开除员工
+	public String dismiss(int id) { // 开除员工
 		int i = employeeService.del(id);
 		String data = "";
-		if(i==0) {
-			data="0";
-		}else {
-			data="1";
+		if (i == 0) {
+			data = "0";
+		} else {
+			data = "1";
 		}
 		return data;
 	}
+
 	@RequestMapping("/payoff")
 	@ResponseBody
-	public String payoff(int userId,int id) { //发放工资
-		boolean sameDate = Util.isSameDate(new Date());  //判断是否是发工资的日子
+	public String payoff(int userId, int id) { // 发放工资
+		boolean sameDate = Util.isSameDate(new Date()); // 判断是否是发工资的日子
 		String data = "";
-		if(!sameDate) { //不是发工资的日子
-			data="0";
-		}else {
-			SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");  
-			Date date=new Date();  
-			String str=sdf.format(date);
+		if (!sameDate) { // 不是发工资的日子
+			data = "0";
+		} else {
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			Date date = new Date();
+			String str = sdf.format(date);
 			try {
-				date=sdf.parse(str);
+				date = sdf.parse(str);
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
 			List<Salary> list = salaryService.queryByDate(date);
 			for (Salary salary : list) {
-				if(salary.getUserId()==userId) {
+				if (salary.getUserId() == userId) {
 					data = "2";
 					return data;
 				}
 			}
 			List<PrizeInfo> prizeInfos = prizeInfoService.queryByEId(userId);
 			Employee employee = employeeService.queryById(id);
-			System.out.println(employee);
+			Performance performance = performanceService.queryByUserId(userId); // 本月绩效
 			Salary salary = new Salary();
 			salary.setUserId(userId);
 			salary.seteName(employee.getResume().getName());
+			if (performance != null) {
+				salary.setMeritPay(performance.getNumber());
+				performanceService.deleteByUserId(userId);
+			}
 			int rewardsPunishmentsWages = 0;
-			if(prizeInfos != null) {
+			if (prizeInfos != null) {
 				for (PrizeInfo prizeInfo : prizeInfos) {
 					rewardsPunishmentsWages += prizeInfo.getAmount();
 				}
@@ -497,77 +531,102 @@ public class Controllers {
 			salary.setRewardsPunishmentsWages(rewardsPunishmentsWages);
 			salary.setDate(new Date());
 			salaryService.addSalary(salary);
-			data="1";
+			data = "1";
 		}
 		return data;
 	}
+
 	@RequestMapping("/attendances")
-	public String attendances(Model model,int userId) { //查询考勤
+	public String attendances(Model model, int userId) { // 查询考勤
 		List<Attendance> attendances = attendanceService.queryOneAll(userId);
 		model.addAttribute("attendances", attendances);
 		return "attendances";
 	}
+
 	@RequestMapping("/hiringTable")
-	public String hiringTable(Model model) { //招聘管理
+	public String hiringTable(Model model) { // 招聘管理
 		List<HiringTable> hiringTables = hiringTableService.queryAll();
+		List<Department> departments = departmentService.queryAllDepartment();
+		List<Position> positions = positionService.queryAll();
+		model.addAttribute("departments", departments);
+		model.addAttribute("positions", positions);
 		model.addAttribute("hiringTables", hiringTables);
 		return "hiringTable";
 	}
+
 	@RequestMapping("/addhiringTable")
-	public String addhiringTable(Model model,String department,String position,String status) { //添加招聘
-		hiringTableService.addHiringTable(new HiringTable(department,position,status));
+	public String addhiringTable(Model model, String department, String position, String status) { // 添加招聘
+		hiringTableService.addHiringTable(new HiringTable(department, position, status));
 		List<HiringTable> hiringTables = hiringTableService.queryAll();
+		List<Department> departments = departmentService.queryAllDepartment();
+		List<Position> positions = positionService.queryAll();
+		model.addAttribute("departments", departments);
+		model.addAttribute("positions", positions);
 		model.addAttribute("hiringTables", hiringTables);
 		return "hiringTable";
 	}
+
 	@RequestMapping("/delhiringTable")
-	public String delhiringTable(Model model,int id) { //删除招聘
+	public String delhiringTable(Model model, int id) { // 删除招聘
 		hiringTableService.deleteHiringTable(id);
 		List<HiringTable> hiringTables = hiringTableService.queryAll();
 		model.addAttribute("hiringTables", hiringTables);
 		return "hiringTable";
 	}
+
 	@RequestMapping("/viewWageDiscrepancy")
-	public String viewWageDiscrepancy(Model model) { //查看异议
+	public String viewWageDiscrepancy(Model model) { // 查看异议
 		List<WageDiscrepancy> wageDiscrepancys = wageDiscrepancyService.queryAllWageDiscrepancy();
 		model.addAttribute("wageDiscrepancys", wageDiscrepancys);
 		return "wageDiscrepancys";
 	}
+
 	@RequestMapping("/append")
 	@ResponseBody
-	public String append(int id,Date date) { //查看工资条
+	public String append(int id, Date date) { // 查看工资条
 		Calendar c = Calendar.getInstance();
 		c.setTime(date);
-		c.add(Calendar.MINUTE, -14*60);
+		c.add(Calendar.MINUTE, -14 * 60);
 		date = c.getTime();
 		Employee employee = employeeService.queryById(id);
 		Salary salary = salaryService.queryByeIdDate(employee.getUserId(), date);
 		System.out.println(salary);
 		String data = "";
-		data = salary.geteName()+"+"+salary.getTotal()+"+"+salary.getBasePay()
-		+"+"+salary.getMeritPay()+"+"+salary.getOvertimeWage()
-		+"+"+salary.getRewardsPunishmentsWages()+"+"+salary.getSocialSecurity()+"+"+salary.getDate();
+		data = salary.geteName() + "+" + salary.getTotal() + "+" + salary.getBasePay() + "+" + salary.getMeritPay()
+				+ "+" + salary.getOvertimeWage() + "+" + salary.getRewardsPunishmentsWages() + "+"
+				+ salary.getSocialSecurity() + "+" + salary.getDate();
 		System.out.println(data);
 		return data;
 	}
+
 	@RequestMapping("/alltrain")
-	public String alltrain(Model model) { //所有培训
+	public String alltrain(Model model) { // 所有培训
 		List<Train> trains = trainService.queryAllTrain();
 		model.addAttribute("trains", trains);
 		return "Supervisor";
 	}
-	
+
 	@RequestMapping("/performance")
-	public String performance(Model model) { //查询所有员工
+	public String performance(Model model) { // 查询所有员工
 		List<Employee> employees = employeeService.queryAll();
 		model.addAttribute("employees", employees);
 		return "Supervisor";
 	}
+
 	@RequestMapping("/addPerfor")
 	@ResponseBody
-	public String addPerfor(int userId,int number) { //添加绩效
+	public String addPerfor(int userId, int number) { // 添加绩效
 		String data = "";
-		
+		Performance performance = performanceService.queryByUserId(userId);
+		if (performance != null) {
+			data = "0";
+		} else {
+			Performance pf = new Performance();
+			pf.setUserId(userId);
+			pf.setNumber(number);
+			performanceService.add(pf);
+			data = "1";
+		}
 		return data;
 	}
 }

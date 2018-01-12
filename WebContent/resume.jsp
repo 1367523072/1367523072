@@ -14,6 +14,22 @@
 		$(".button").click(function() {
 			window.history.back();
 		});
+		$(".department").change(function(){
+			var dept = $(this).val();
+			$.ajax({
+				url:"${pageContext.request.contextPath}/linkage",
+				type:"post",
+				dataType:"text",
+				data:{dept:dept},
+				success:function(data){
+					$(".position").children().remove()
+					var list = data.split("+")
+					for(var a=0;a<list.length-1;a++){
+						$(".position").append("<option>"+list[a]+"</option>");
+					}
+				}
+			});
+		});
 	})
 </script>
 <body>
@@ -54,10 +70,13 @@
 				</tr>
 				<tr>
 					<td>应聘职位</td>
-					<td><select name="department">
-							<option value="部门">部门</option>
-					</select> <select name="position">
-							<option value="职位">职位</option>
+					<td><select name="department" class="department">
+							<option>请选择部门</option>
+								<c:forEach items="${requestScope.departments}" var="department">
+									<option value="${department.name}">${department.name}</option>
+								</c:forEach>
+					</select> <select name="position" class="position" >
+							<option>职位</option>
 					</select></td>
 					<td>政治面貌</td>
 					<td><select name="politicalStatus">
@@ -138,21 +157,15 @@
 				<tr>
 					<td>应聘职位</td>
 					<td><select name="department" class="department">
-					<c:if test="${!empty requestScope.departments}">
-						<c:forEach items="${requestScope.departments}" var="department">
-							<option value="${department.name}">${department.name}</option>
-						</c:forEach>
-					</c:if>
-					</select> <select name="position">
-					<%-- <c:if test="${!empty requestScope.positions}">
-						<c:forEach items="${positions}" var="position" >
-							<c:forEach items="${position.departments}" var="department">
-								<c:if test="${position.depName==department.name}">
-									<option value="${position.name}">${position.name}</option>
-								</c:if>
-							</c:forEach>
-						</c:forEach>
-					</c:if> --%>
+							<option>请选择部门</option>
+								<c:forEach items="${requestScope.departments}" var="department">
+									<option value="${department.name}" <c:if test="${requestScope.resume.department==department.name}">selected="selected"</c:if>>${department.name}</option>
+								</c:forEach>
+					</select> <select name="position" class="position" >
+							<option>职位</option>
+								<c:forEach items="${requestScope.positions}" var="position">
+									<option value="${position.name}" <c:if test="${requestScope.resume.position==position.name}">selected="selected"</c:if>>${position.name}</option>
+								</c:forEach>
 					</select></td>
 					<td>政治面貌</td>
 					<td><select name="politicalStatus">

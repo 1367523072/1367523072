@@ -159,7 +159,7 @@
 				</c:forEach>
 			</table>
 			</c:if>
-			<c:if test="${empty sessionScope.query}">
+			<c:if test="${empty sessionScope.noFeedbackForms}">
 				<b style="color: red">还没有反馈哦</b>
 			</c:if>
 	</div>

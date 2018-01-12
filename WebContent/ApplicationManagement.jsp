@@ -13,12 +13,17 @@
 <script type="text/javascript">
 	$(function(){
 		$(".div4").hide();
+		//$(".div3").hide();
 		$(".button").click(function(){
 			$(".div4").toggle();
+		});
+		$(".view").click(function(){
+			$(".div3").toggle();
 		});
 	})
 </script>
 <body>
+<c:if test="${!empty requestScope.list}">
 	<div class="div1">
 		<table border="1">
 			<tr>
@@ -44,7 +49,11 @@
 			</c:forEach>
 		</table>
 	</div>
-	
+</c:if>	
+
+<c:if test="${empty requestScope.list}">
+还没有人应聘！！
+</c:if>	
 	<div class="div3">
 		<table border="1">
 				<tr>
